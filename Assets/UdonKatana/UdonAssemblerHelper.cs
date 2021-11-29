@@ -2,85 +2,14 @@
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
-using UnityEngine;
-using VRC.SDKBase;
-using VRC.Udon;
 using VRC.Udon.Common;
 using VRC.Udon.Common.Interfaces;
 using VRC.Udon.Graph;
 using VRC.Udon.Editor;
 using VRC.Udon.EditorBindings;
-using VRC.SDK3.Components.Video;
 
 namespace JLChnToZ.VRC.UdonLowLevel {
     public sealed class UdonAssemblyBuilder {
-        static readonly Dictionary<VariableName, Type> predefinedVariableTypes = new Dictionary<VariableName, Type> {
-            // These fields are auto assigned by udon behaviours thus they should not be declared by user input.
-            [UdonBehaviour.ReturnVariableName] = typeof(object),
-            ["inputDropArgs"] = typeof(UdonInputEventArgs),
-            ["inputDropBoolValue"] = typeof(bool),
-            ["inputGrabArgs"] = typeof(UdonInputEventArgs),
-            ["inputGrabBoolValue"] = typeof(bool),
-            ["inputJumpArgs"] = typeof(UdonInputEventArgs),
-            ["inputJumpBoolValue"] = typeof(bool),
-            ["inputLookHorizontalArgs"] = typeof(UdonInputEventArgs),
-            ["inputLookHorizontalFloatValue"] = typeof(float),
-            ["inputLookVerticalArgs"] = typeof(UdonInputEventArgs),
-            ["inputLookVerticalFloatValue"] = typeof(float),
-            ["inputMoveHorizontalArgs"] = typeof(UdonInputEventArgs),
-            ["inputMoveHorizontalFloatValue"] = typeof(float),
-            ["inputMoveVerticalArgs"] = typeof(UdonInputEventArgs),
-            ["inputMoveVerticalFloatValue"] = typeof(float),
-            ["inputUseArgs"] = typeof(UdonInputEventArgs),
-            ["inputUseBoolValue"] = typeof(bool),
-            ["midiControlChangeChannel"] = typeof(int),
-            ["midiControlChangeNumber"] = typeof(int),
-            ["midiControlChangeValue"] = typeof(int),
-            ["midiNoteOffChannel"] = typeof(int),
-            ["midiNoteOffNumber"] = typeof(int),
-            ["midiNoteOffVelocity"] = typeof(int),
-            ["midiNoteOnChannel"] = typeof(int),
-            ["midiNoteOnNumber"] = typeof(int),
-            ["midiNoteOnVelocity"] = typeof(int),
-            ["onAnimatorIKLayerIndex"] = typeof(int),
-            ["onAudioFilterReadChannels"] = typeof(int),
-            ["onAudioFilterReadData"] = typeof(float[]),
-            ["onCollisionEnter2DOther"] = typeof(Collision2D),
-            ["onCollisionEnterOther"] = typeof(Collision),
-            ["onCollisionExit2DOther"] = typeof(Collision2D),
-            ["onCollisionExitOther"] = typeof(Collision),
-            ["onCollisionStay2DOther"] = typeof(Collision2D),
-            ["onCollisionStayOther"] = typeof(Collision),
-            ["onControllerColliderHitHit"] = typeof(ControllerColliderHit),
-            ["onJointBreak2DJoint"] = typeof(Joint2D),
-            ["onJointBreakForce"] = typeof(float),
-            ["onOwnershipRequestNewOwner"] = typeof(VRCPlayerApi),
-            ["onOwnershipRequestRequester"] = typeof(VRCPlayerApi),
-            ["onOwnershipTransferredPlayer"] = typeof(VRCPlayerApi),
-            ["onParticleCollisionOther"] = typeof(GameObject),
-            ["onPlayerCollisionEnterPlayer"] = typeof(VRCPlayerApi),
-            ["onPlayerCollisionExitPlayer"] = typeof(VRCPlayerApi),
-            ["onPlayerCollisionStayPlayer"] = typeof(VRCPlayerApi),
-            ["onPlayerJoinedPlayer"] = typeof(VRCPlayerApi),
-            ["onPlayerLeftPlayer"] = typeof(VRCPlayerApi),
-            ["onPlayerParticleCollisionPlayer"] = typeof(VRCPlayerApi),
-            ["onPlayerRespawnPlayer"] = typeof(VRCPlayerApi),
-            ["onPlayerTriggerEnterPlayer"] = typeof(VRCPlayerApi),
-            ["onPlayerTriggerExitPlayer"] = typeof(VRCPlayerApi),
-            ["onPlayerTriggerStayPlayer"] = typeof(VRCPlayerApi),
-            ["onPostSerializationResult"] = typeof(SerializationResult),
-            ["onRenderImageDest"] = typeof(RenderTexture),
-            ["onRenderImageSrc"] = typeof(RenderTexture),
-            ["onStationEnteredPlayer"] = typeof(VRCPlayerApi),
-            ["onStationExitedPlayer"] = typeof(VRCPlayerApi),
-            ["onTriggerEnter2DOther"] = typeof(Collider2D),
-            ["onTriggerEnterOther"] = typeof(Collider),
-            ["onTriggerExit2DOther"] = typeof(Collider2D),
-            ["onTriggerExitOther"] = typeof(Collider),
-            ["onTriggerStay2DOther"] = typeof(Collider2D),
-            ["onTriggerStayOther"] = typeof(Collider),
-            ["onVideoErrorVideoError"] = typeof(VideoError),
-        };
         static readonly Regex autoVariableStripper = new Regex("[\\W_]+", RegexOptions.Compiled);
         static readonly object nullObj = new object();
         public const uint ReturnAddress = uint.MaxValue - 7;
@@ -122,7 +51,8 @@ namespace JLChnToZ.VRC.UdonLowLevel {
         public void DefineVariable(VariableName variableName, VariableDefinition definition) {
             if (!variableName.IsValid)
                 throw new ArgumentNullException(nameof(variableName));
-            if (predefinedVariableTypes.TryGetValue(variableName, out var fixedType)) {
+            var fixedType = variableName.GetPredefinedType();
+            if (fixedType != null) {
                 definition.type = fixedType;
                 definition.attributes &= VariableAttributes.Public;
             }
@@ -143,7 +73,8 @@ namespace JLChnToZ.VRC.UdonLowLevel {
 
         public bool TryGetVariable(VariableName variableName, out VariableDefinition result) {
             if (variableDefs.TryGetValue(variableName, out result)) return true;
-            if (predefinedVariableTypes.TryGetValue(variableName, out var fixedType)) {
+            var fixedType = variableName.GetPredefinedType();
+            if (fixedType != null) {
                 DefineVariable(variableName, fixedType);
                 result = variableDefs[variableName];
                 return true;
@@ -419,14 +350,31 @@ namespace JLChnToZ.VRC.UdonLowLevel {
 
     public static class TypeHelper {
         static readonly Dictionary<Type, string> typeNames = new Dictionary<Type, string>();
+        static readonly Dictionary<VariableName, Type> predefinedVariableTypes = new Dictionary<VariableName, Type>();
 
         static TypeHelper() {
-            foreach (var def in UdonEditorManager.Instance.GetNodeDefinitions())
-                if (def.fullName.StartsWith("Type_") && !def.fullName.EndsWith("Ref") && !typeNames.ContainsKey(def.type))
-                    typeNames[def.type] = def.fullName.Substring(5);
+            foreach (var def in UdonEditorManager.Instance.GetNodeDefinitions()) {
+                if (def.fullName.StartsWith("Type_")) {
+                    if (!def.fullName.EndsWith("Ref") && !typeNames.ContainsKey(def.type))
+                        typeNames[def.type] = def.fullName.Substring(5);
+                    continue;
+                }
+                if (def.fullName.StartsWith("Event_")) {
+                    var eventName = $"{char.ToLower(def.fullName[6])}{def.fullName.Substring(7)}";
+                    foreach (var parameter in def.parameters)
+                        if (parameter.parameterType == UdonNodeParameter.ParameterType.OUT)
+                            predefinedVariableTypes[$"{eventName}{char.ToUpper(parameter.name[0])}{parameter.name.Substring(1)}"] = def.type;
+                    continue;
+                }
+            }
         }
 
         public static string GetUdonTypeName(this Type type) => typeNames.TryGetValue(type, out var typeName) ? typeName : "SystemObject";
+
+        public static Type GetPredefinedType(this VariableName varName) {
+            predefinedVariableTypes.TryGetValue(varName, out var type);
+            return type;
+        }
     }
 
     public struct VariableName : IEquatable<VariableName> {

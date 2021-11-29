@@ -155,11 +155,10 @@ namespace JLChnToZ.VRC.UdonKatana {
                 if (hasReturnType) argc--;
                 string methodName = parsedName[1];
                 var typeName = FormatTypeName(def.type);
-                var typeName2 = def.type.GetUdonTypeName();
                 switch (methodName) {
                     case "ctor":
                         methodName = $"Create{typeName}";
-                        aliases.Add($"Create{typeName2}");
+                        aliases.Add($"Create{def.type.GetUdonTypeName()}");
                         break;
                     case "op_Explicit":
                     case "op_Implicit":
@@ -194,16 +193,12 @@ namespace JLChnToZ.VRC.UdonKatana {
                     case "op_UnaryNegation": methodName = "~"; break;
                     default:
                         if (argc < 1 || def.parameters[0].type != def.type) {
-                            if (methodName.StartsWith("get_")) {
-                                aliases.Add($"Get{typeName2}{char.ToUpper(methodName[4])}{methodName.Substring(5)}");
+                            if (methodName.StartsWith("get_"))
                                 methodName = $"Get{typeName}{char.ToUpper(methodName[4])}{methodName.Substring(5)}";
-                            } else if (methodName.StartsWith("set_")) {
-                                aliases.Add($"Set{typeName2}{char.ToUpper(methodName[4])}{methodName.Substring(5)}");
+                            else if (methodName.StartsWith("set_"))
                                 methodName = $"Set{typeName}{char.ToUpper(methodName[4])}{methodName.Substring(5)}";
-                            } else if (!methodName.StartsWith("op_")) {
-                                aliases.Add($"{typeName2}{char.ToUpper(methodName[0])}{methodName.Substring(1)}");
+                            else if (!methodName.StartsWith("op_"))
                                 methodName = $"{typeName}{char.ToUpper(methodName[0])}{methodName.Substring(1)}";
-                            }
                         } else if (methodName.StartsWith("get_"))
                             methodName = $"Get{char.ToUpper(methodName[4])}{methodName.Substring(5)}";
                         else if (methodName.StartsWith("set_"))
