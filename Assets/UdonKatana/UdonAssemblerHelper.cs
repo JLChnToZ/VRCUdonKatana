@@ -363,7 +363,7 @@ namespace JLChnToZ.VRC.UdonLowLevel {
                     var eventName = $"{char.ToLower(def.fullName[6])}{def.fullName.Substring(7)}";
                     foreach (var parameter in def.parameters)
                         if (parameter.parameterType == UdonNodeParameter.ParameterType.OUT)
-                            predefinedVariableTypes[$"{eventName}{char.ToUpper(parameter.name[0])}{parameter.name.Substring(1)}"] = def.type;
+                            predefinedVariableTypes[$"{eventName}{char.ToUpper(parameter.name[0])}{parameter.name.Substring(1)}"] = parameter.type;
                     continue;
                 }
             }
