@@ -16,6 +16,7 @@ namespace JLChnToZ.VRC.UdonKatana {
         private const string defaultSource = "(\n  ; Type in your Udon Katana source code here.\n\n  when(_start, (\n    ; Called on initialize\n    DebugLog(Udon Katana works!)\n  )),\n\n  when(_update, (\n    ; Called on every frame\n  )),\n)";
         [SerializeField] string sourceText;
         [SerializeField] TextAsset textAsset;
+        [SerializeField] bool autoReload;
         [SerializeField] bool showKatana;
         [SerializeField] bool showAssembly;
         [SerializeField] bool showDasm;
@@ -36,32 +37,53 @@ namespace JLChnToZ.VRC.UdonKatana {
         }
 
         protected override void DrawAssemblyTextArea(bool allowEditing, ref bool dirty) {
+            EditorGUILayout.BeginHorizontal();
             using (new EditorGUI.DisabledScope(!allowEditing)) {
                 EditorGUI.BeginChangeCheck();
-                textAsset = EditorGUILayout.ObjectField("Udon Katana Script File (Optional)", textAsset, typeof(TextAsset), false) as TextAsset;
+                textAsset = EditorGUILayout.ObjectField("Script File (Optional)", textAsset, typeof(TextAsset), false) as TextAsset;
                 if (EditorGUI.EndChangeCheck() && textAsset != null && sourceText != textAsset.text &&
                     EditorUtility.DisplayDialog("Load Udon Katana Script", "Do you want to overwrite existing scripts now?", "Yes", "No")) {
                     sourceText = textAsset.text;
                     dirty = true;
+                } else if (textAsset == null)
+                    autoReload = false;
+            }
+            using (new EditorGUI.DisabledScope(autoReload || (textAsset != null ? sourceText != textAsset.text : string.IsNullOrEmpty(sourceText))))
+                if (GUILayout.Button("Save", EditorStyles.miniButtonLeft)) {
+                    SaveAsset();
+                    dirty = true;
+                }
+            using (new EditorGUI.DisabledScope(autoReload || textAsset == null || sourceText == textAsset.text))
+                if (GUILayout.Button("Restore", EditorStyles.miniButtonMid)) {
+                    sourceText = textAsset.text;
+                    dirty = true;
+                }
+            using (new EditorGUI.DisabledScope(textAsset == null || (!autoReload && sourceText != textAsset.text))) {
+                EditorGUI.BeginChangeCheck();
+                autoReload = GUILayout.Toggle(autoReload, "Auto", EditorStyles.miniButtonRight);
+                if (EditorGUI.EndChangeCheck()) {
+                    sourceText = autoReload ? "" : textAsset.text;
+                    dirty = true;
                 }
             }
+            EditorGUILayout.EndHorizontal();
+            EditorGUILayout.BeginHorizontal();
             showKatana = EditorGUILayout.Foldout(showKatana, "Udon Katana");
-            using (new EditorGUI.DisabledScope(!allowEditing))
+            if (GUILayout.Button("Compile", EditorStyles.miniButton)) {
+                RefreshProgram();
+                dirty = true;
+            }
+            EditorGUILayout.EndHorizontal();
+            using (new EditorGUI.DisabledScope(autoReload || !allowEditing))
                 if (showKatana) {
-                    EditorGUILayout.BeginHorizontal();
                     EditorGUILayout.LabelField("Udon Katana", EditorStyles.boldLabel);
-                    if (GUILayout.Button("Compile", EditorStyles.miniButtonLeft)) RefreshProgram();
-                    using (new EditorGUI.DisabledScope(textAsset != null ? sourceText != textAsset.text : string.IsNullOrEmpty(sourceText)))
-                        if (GUILayout.Button("Save to File", EditorStyles.miniButtonMid)) SaveAsset();
-                    using (new EditorGUI.DisabledScope(textAsset == null || sourceText == textAsset.text))
-                        if (GUILayout.Button("Restore from File", EditorStyles.miniButtonRight)) {
-                            sourceText = textAsset.text;
-                            dirty = true;
-                        }
-                    EditorGUILayout.EndHorizontal();
-                    EditorGUI.BeginChangeCheck();
-                    sourceText = EditorGUILayout.TextArea(sourceText);
-                    if (EditorGUI.EndChangeCheck()) dirty = true;
+                    if (autoReload)
+                        EditorGUILayout.TextArea(textAsset.text);
+                    else {
+                        EditorGUI.BeginChangeCheck();
+                        sourceText = EditorGUILayout.TextArea(sourceText);
+                        if (EditorGUI.EndChangeCheck()) dirty = true;
+                    }
                 }
             showAssembly = EditorGUILayout.Foldout(showAssembly, "Compiled Udon Assembly");
             if (showAssembly) base.DrawAssemblyTextArea(false, ref dirty);
@@ -70,8 +92,9 @@ namespace JLChnToZ.VRC.UdonKatana {
         protected override void RefreshProgramImpl() {
             try {
                 var builder = new UdonAssemblyBuilder();
-                if (textAsset != null) sourceText = textAsset.text;
+                if (autoReload && textAsset != null) sourceText = textAsset.text;
                 var node = Node.Deserialize(sourceText);
+                if (autoReload) sourceText = "";
                 ProcessingBlock.AssembleBody(node, builder);
                 udonAssembly = builder.Compile();
                 program = builder.Assemble();

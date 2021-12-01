@@ -77,42 +77,41 @@ MonoBehaviour:
     __temp_VRCSDKBaseVRCPlayerApiArray_1:
     %VRCSDKBaseVRCPlayerApiArray, null
 
-    __temp_SystemInt32_3: %SystemInt32,
+    __temp_SystemInt32_3: %SystemInt32, null
+
+    __temp_VRCSDKBaseVRCPlayerApiArray_2:
+    %VRCSDKBaseVRCPlayerApiArray, null
+
+    __temp_VRCSDKBaseVRCPlayerApiArray_3:
+    %VRCSDKBaseVRCPlayerApiArray, null
+
+    __temp_VRCSDKBaseVRCPlayerApi_0: %VRCSDKBaseVRCPlayerApi,
     null
 
-    __temp_VRCSDKBaseVRCPlayerApiArray_2: %VRCSDKBaseVRCPlayerApiArray,
-    null
+    __temp_SystemInt32_4: %SystemInt32, null
 
-    __temp_VRCSDKBaseVRCPlayerApiArray_3: %VRCSDKBaseVRCPlayerApiArray,
-    null
-
-    __temp_VRCSDKBaseVRCPlayerApi_0: %VRCSDKBaseVRCPlayerApi, null
-
-    __temp_SystemInt32_4:
+    __temp_SystemInt32_5:
     %SystemInt32, null
 
-    __temp_SystemInt32_5: %SystemInt32, null
+    __const_Int32_1: %SystemInt32, null
 
-    __const_Int32_1:
-    %SystemInt32, null
-
-    __const_UInt32_764: %SystemUInt32, null
-
-    __const_UInt32_4294967288:
+    __const_UInt32_764:
     %SystemUInt32, null
 
-    __returnValue: %SystemObject, null
+    __const_UInt32_4294967288: %SystemUInt32, null
 
-    __temp_SystemBoolean_1:
-    %SystemBoolean, null
+    __returnValue:
+    %SystemObject, null
 
-    __temp_VRCSDKBaseVRCPlayerApiArray_4: %VRCSDKBaseVRCPlayerApiArray,
-    null
+    __temp_SystemBoolean_1: %SystemBoolean, null
+
+    __temp_VRCSDKBaseVRCPlayerApiArray_4:
+    %VRCSDKBaseVRCPlayerApiArray, null
 
     __const_Int32_0: %SystemInt32, null
 
-    __temp_SystemInt32_6: %SystemInt32,
-    null
+    __temp_SystemInt32_6:
+    %SystemInt32, null
 
     __temp_SystemInt32_7: %SystemInt32, null
 
@@ -191,13 +190,13 @@ MonoBehaviour:
 
     __const_String_Master_: %SystemString, null
 
-    __const_Int32_4:
-    %SystemInt32, null
+    __const_Int32_4: %SystemInt32,
+    null
 
     __const_Int32_5: %SystemInt32, null
 
-    __temp_SystemInt32_11:
-    %SystemInt32, null
+    __temp_SystemInt32_11: %SystemInt32,
+    null
 
     __temp_UnityEngineUIText_0: %UnityEngineUIText, null
 
@@ -259,10 +258,10 @@ MonoBehaviour:
 
     PUSH, __temp_SystemInt32_0
 
-    PUSH,
-    playerList
+    PUSH, playerList
 
-    EXTERN, "VRCSDKBaseVRCPlayerApiArray.__ctor__SystemInt32__VRCSDKBaseVRCPlayerApiArray"
+    EXTERN,
+    "VRCSDKBaseVRCPlayerApiArray.__ctor__SystemInt32__VRCSDKBaseVRCPlayerApiArray"
 
     NOP
 
@@ -292,10 +291,10 @@ MonoBehaviour:
 
     PUSH, __temp_SystemInt32_0
 
-    PUSH,
-    __temp_SystemInt32_1
+    PUSH, __temp_SystemInt32_1
 
-    PUSH, __temp_SystemBoolean_0
+    PUSH,
+    __temp_SystemBoolean_0
 
     EXTERN, "SystemInt32.__op_LessThanOrEqual__SystemInt32_SystemInt32__SystemBoolean"
 
@@ -442,10 +441,10 @@ MonoBehaviour:
 
     PUSH, __temp_SystemInt32_4
 
-    PUSH,
-    __temp_SystemInt32_5
+    PUSH, __temp_SystemInt32_5
 
-    PUSH, count
+    PUSH,
+    count
 
     EXTERN, "SystemInt32.__op_Addition__SystemInt32_SystemInt32__SystemInt32"
 
@@ -456,10 +455,10 @@ MonoBehaviour:
 
     COPY
 
-    JUMP,
-    0x000005D0
+    JUMP, 0x000005D0
 
-    PUSH, __const_UInt32_4294967288
+    PUSH,
+    __const_UInt32_4294967288
 
     PUSH, ___updateValues_return
 
@@ -558,10 +557,10 @@ MonoBehaviour:
 
     PUSH, __temp_SystemInt32_4
 
-    PUSH,
-    __temp_SystemInt32_5
+    PUSH, __temp_SystemInt32_5
 
-    PUSH, __temp_SystemBoolean_1
+    PUSH,
+    __temp_SystemBoolean_1
 
     EXTERN, "SystemInt32.__op_GreaterThanOrEqual__SystemInt32_SystemInt32__SystemBoolean"
 
@@ -676,10 +675,10 @@ MonoBehaviour:
 
     COPY
 
-    JUMP,
-    0x000005D0
+    JUMP, 0x000005D0
 
-    PUSH, __const_UInt32_4294967288
+    PUSH,
+    __const_UInt32_4294967288
 
     PUSH, ___updateValues_return
 
@@ -753,19 +752,19 @@ MonoBehaviour:
 
     PUSH, count
 
-    PUSH,
-    __temp_SystemInt32_10
+    PUSH, __temp_SystemInt32_10
 
     COPY
 
-    PUSH, __temp_SystemInt32_9
-
     PUSH,
-    __temp_SystemInt32_10
+    __temp_SystemInt32_9
+
+    PUSH, __temp_SystemInt32_10
 
     PUSH, __temp_SystemBoolean_2
 
-    EXTERN, "SystemInt32.__op_LessThan__SystemInt32_SystemInt32__SystemBoolean"
+    EXTERN,
+    "SystemInt32.__op_LessThan__SystemInt32_SystemInt32__SystemBoolean"
 
     PUSH,
     __temp_SystemBoolean_2
@@ -781,17 +780,17 @@ MonoBehaviour:
 
     PUSH, index
 
-    PUSH,
-    __temp_SystemInt32_9
+    PUSH, __temp_SystemInt32_9
 
     COPY
 
-    PUSH, __temp_VRCSDKBaseVRCPlayerApiArray_6
+    PUSH,
+    __temp_VRCSDKBaseVRCPlayerApiArray_6
+
+    PUSH, __temp_SystemInt32_9
 
     PUSH,
-    __temp_SystemInt32_9
-
-    PUSH, __temp_SystemObject_2
+    __temp_SystemObject_2
 
     EXTERN, "VRCSDKBaseVRCPlayerApiArray.__GetValue__SystemInt32__SystemObject"
 
@@ -1057,10 +1056,10 @@ MonoBehaviour:
 
     PUSH, __temp_SystemInt32_10
 
-    PUSH,
-    __temp_SystemInt32_11
+    PUSH, __temp_SystemInt32_11
 
-    PUSH, index
+    PUSH,
+    index
 
     EXTERN, "SystemInt32.__op_Addition__SystemInt32_SystemInt32__SystemInt32"
 
@@ -1104,30 +1103,9 @@ MonoBehaviour:
 
 '
   assemblyError: 
-  sourceText: "(\r\n  var(player, VRCPlayerApi, ),\r\n  var(playerList, VRCPlayerApiArray,
-    ),\r\n  var(tempPlayerList, VRCPlayerApiArray, ),\r\n  var(count, Int32, 0),\r\n 
-    var(index, Int32, 0),\r\n  var(text, String, ),\r\n  var(output, public, Text,
-    ),\r\n\r\n  when(_onPlayerJoined, (\r\n    DebugLog(On player joined),\r\n   
-    if(==($(playerList), ), (\r\n      =(playerList, CreateVRCPlayerApiArray(10)),\r\n   
-    ), <=(GetLength($(playerList)), $(count)), (\r\n      =(tempPlayerList, CreateVRCPlayerApiArray(+(GetLength($(playerList)),
-    10))),\r\n      CopyTo($(playerList), $(tempPlayerList), GetLength($(playerList))),\r\n     
-    =(playerList, $(tempPlayerList)),\r\n      =(tempPlayerList, ),\r\n    )),\r\n   
-    SetValue($(playerList), $(onPlayerJoinedPlayer), $(count)),\r\n    =(count, +($(count),
-    1)),\r\n    (_updateValues),\r\n  )),\r\n\r\n  when(_onPlayerLeft, (\r\n    DebugLog(On
-    player joined),\r\n    if(!=($(playerList), ), (\r\n      =(index, IndexOf($(playerList),
-    $(onPlayerLeftPlayer))),\r\n      if(>=($(index), 0), (\r\n        =(count, -($(count),
-    1)),\r\n        SetValue($(playerList), GetValue($(playerList), $(count)), $(index)),\r\n       
-    SetValue($(playerList), , $(count)),\r\n        (_updateValues),\r\n      )),\r\n   
-    )),\r\n  )),\r\n\r\n  when(_updateValues, (\r\n    DebugLog(Player update values),\r\n   
-    =(index, 0),\r\n    =(text, Format(\"{0} Online Players\\n\", $(count))),\r\n   
-    while(<($(index), $(count)), (\r\n      =(player, !VRCPlayerApi(GetValue($(playerList),
-    $(index)))),\r\n      =(text, +($(text), Format(\r\n        \"- {0}#{1} [{2}]{3}{4}\\n\",\r\n       
-    ToSystemObjectArray(\r\n          GetDisplayName($(player)),\r\n          GetPlayerId($(player)),\r\n         
-    if(IsUserInVR($(player)), \"VR\", \"Desktop\"),\r\n          if(GetIsLocal($(player)),
-    \" [ME]\", \"\"),\r\n          if(GetIsMaster($(player)), \" [Master]\", \"\"),\r\n       
-    )\r\n      ))),\r\n      =(index, +($(index), 1)),\r\n    )),\r\n    SetText($(output),
-    $(text)),\r\n  )),\r\n)"
-  textAsset: {fileID: 0}
-  showKatana: 1
+  sourceText: 
+  textAsset: {fileID: 4900000, guid: 63e89e9a39787664a89a9d79b79867be, type: 3}
+  autoReload: 1
+  showKatana: 0
   showAssembly: 0
   showDasm: 0

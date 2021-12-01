@@ -1,0 +1,58 @@
+(
+  var(player, VRCPlayerApi, ),
+  var(playerList, VRCPlayerApiArray, ),
+  var(tempPlayerList, VRCPlayerApiArray, ),
+  var(count, Int32, 0),
+  var(index, Int32, 0),
+  var(text, String, ),
+  var(output, public, Text, ),
+
+  when(_onPlayerJoined, (
+    DebugLog(On player joined),
+    if(==($(playerList), ), (
+      =(playerList, CreateVRCPlayerApiArray(10)),
+    ), <=(GetLength($(playerList)), $(count)), (
+      =(tempPlayerList, CreateVRCPlayerApiArray(+(GetLength($(playerList)), 10))),
+      CopyTo($(playerList), $(tempPlayerList), GetLength($(playerList))),
+      =(playerList, $(tempPlayerList)),
+      =(tempPlayerList, ),
+    )),
+    SetValue($(playerList), $(onPlayerJoinedPlayer), $(count)),
+    =(count, +($(count), 1)),
+    (_updateValues),
+  )),
+
+  when(_onPlayerLeft, (
+    DebugLog(On player joined),
+    if(!=($(playerList), ), (
+      =(index, IndexOf($(playerList), $(onPlayerLeftPlayer))),
+      if(>=($(index), 0), (
+        =(count, -($(count), 1)),
+        SetValue($(playerList), GetValue($(playerList), $(count)), $(index)),
+        SetValue($(playerList), , $(count)),
+        (_updateValues),
+      )),
+    )),
+  )),
+
+  when(_updateValues, (
+    DebugLog(Player update values),
+    =(index, 0),
+    =(text, Format("{0} Online Players\n", $(count))),
+    while(<($(index), $(count)), (
+      =(player, !VRCPlayerApi(GetValue($(playerList), $(index)))),
+      =(text, +($(text), Format(
+        "- {0}#{1} [{2}]{3}{4}\n",
+        ToSystemObjectArray(
+          GetDisplayName($(player)),
+          GetPlayerId($(player)),
+          if(IsUserInVR($(player)), "VR", "Desktop"),
+          if(GetIsLocal($(player)), " [ME]", ""),
+          if(GetIsMaster($(player)), " [Master]", ""),
+        )
+      ))),
+      =(index, +($(index), 1)),
+    )),
+    SetText($(output), $(text)),
+  )),
+)
