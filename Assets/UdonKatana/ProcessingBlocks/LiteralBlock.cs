@@ -4,10 +4,10 @@ using JLChnToZ.VRC.UdonLowLevel;
 using JLChnToZ.Katana.Expressions;
 
 namespace JLChnToZ.VRC.UdonKatana {
-    [ProcessingBlockPriority(Priority = 900)]
+    [ProcessingBlockPriority(Priority = int.MinValue)]
     internal class LiteralBlock: ProcessingBlock {
-        public LiteralBlock(Node current, AssemblerState state, VariableName explicitTarget = default)
-            : base(current, state, explicitTarget) {}
+        public LiteralBlock(Node current, AssemblerState state)
+            : base(current, state) {}
 
         protected override bool ResolveBlockType(out Type type) {
             if (current.Count == 0) {

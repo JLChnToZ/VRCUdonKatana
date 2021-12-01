@@ -1,24 +1,29 @@
 using System;
 using System.Collections.Generic;
-using JLChnToZ.VRC.UdonLowLevel;
 using JLChnToZ.Katana.Expressions;
 
 namespace JLChnToZ.VRC.UdonKatana {
-    [ProcessingBlockPriority(Priority = 1000)]
+    [ProcessingBlockPriority(Priority = int.MaxValue)]
     internal class NoTagBlock: ProcessingBlock {
-        public NoTagBlock(Node current, AssemblerState state, VariableName explicitTarget = default)
-            : base(current, state, explicitTarget) {}
+        static readonly HashSet<Node> noArgsNode = new HashSet<Node>();
+
+        public static bool IsNoArgsNode(Node node) => noArgsNode.Contains(node);
+
+        public NoTagBlock(Node current, AssemblerState state)
+            : base(current, state) {}
 
         protected override bool BeforeResolveBlockType() {
-            if (current.Tag != null) return true;
-            if (current.Count == 1 && current[0].Count == 0)
-                return false;
+            if (current.Tag == null && current.Count == 1 && current[0].Count == 0)
+                noArgsNode.Add(current[0]);
             return true;
         }
 
         protected override bool ResolveBlockType(out Type type) {
-            if (current.Tag == null && current.Count > 0 && state.tagTypeMapping.TryGetValue(current[current.Count - 1], out type))
+            if (current.Tag == null && current.Count > 0) {
+                state.tagTypeMapping.TryGetValue(current[current.Count - 1], out type);
+                foreach (var child in current) noArgsNode.Remove(child); // Cleanup
                 return true;
+            }
             type = null;
             return false;
         }

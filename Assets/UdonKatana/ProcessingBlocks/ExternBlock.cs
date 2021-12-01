@@ -9,19 +9,23 @@ namespace JLChnToZ.VRC.UdonKatana {
     internal class ExternBlock: CallableBlockBase {
         readonly List<object> parameters = new List<object>();
 
-        public ExternBlock(Node current, AssemblerState state, VariableName explicitTarget = default)
-            : base(current, state, explicitTarget) {}
+        public ExternBlock(Node current, AssemblerState state)
+            : base(current, state) {}
 
         protected override bool ResolveBlockType(out Type type) {
-            var tagStr = Convert.ToString(contentNode);
+            if (current.Count == 0 && !isQuotedNoArgNode) {
+                type = null;
+                return false;
+            }
+            var tagStr = Convert.ToString(current);
             type = null;
-            if (AssemblerStateHelper.methodDefs.TryGetValue((tagStr, contentNode.Count), out var overloads)) {
+            if (AssemblerStateHelper.methodDefs.TryGetValue((tagStr, current.Count), out var overloads)) {
                 bool matches = false;
                 foreach (var method in overloads) {
                     matches = true;
-                    for (int i = 0; i < contentNode.Count; i++) {
+                    for (int i = 0; i < current.Count; i++) {
                         var parameter = method.parameters[i];
-                        if (!state.tagTypeMapping.TryGetValue(contentNode[i], out var currentType)) {
+                        if (!state.tagTypeMapping.TryGetValue(current[i], out var currentType)) {
                             matches = false;
                             break;
                         }
@@ -40,8 +44,8 @@ namespace JLChnToZ.VRC.UdonKatana {
                     }
                     if (matches) {
                         state.nodeMapping[current] = method;
-                        if (method.parameters.Count > contentNode.Count) // Has return type
-                            type = method.parameters[contentNode.Count].type;
+                        if (method.parameters.Count > current.Count) // Has return type
+                            type = method.parameters[current.Count].type;
                         break;
                     }
                 }
@@ -51,15 +55,15 @@ namespace JLChnToZ.VRC.UdonKatana {
         }
         
         protected override bool Process(Stack<ProcessingBlock> stack) {
-            if (i < contentNode.Count) {
-                result = GetTempVariable(contentNode[i]);
-                stack.Push(Create(contentNode[i], state, result));
+            if (i < current.Count) {
+                result = GetTempVariable(current[i]);
+                stack.Push(Create(current[i], state, result));
                 parameters.Add(result);
                 i++;
                 return false;
             }
-            if (state.tagTypeMapping.ContainsKey(contentNode))
-                parameters.Add(ExplicitTarget.IsValid ? ExplicitTarget : GetTempVariable(contentNode));
+            if (state.tagTypeMapping.ContainsKey(current))
+                parameters.Add(ExplicitTarget.IsValid ? ExplicitTarget : GetTempVariable(current));
             if (state.nodeMapping.TryGetValue(current, out var def))
                 state.builder.EmitExtern(def.fullName, parameters.ToArray());
             ReturnAllTempVariables();

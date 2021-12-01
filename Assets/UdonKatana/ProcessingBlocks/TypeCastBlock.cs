@@ -6,11 +6,15 @@ using JLChnToZ.Katana.Expressions;
 namespace JLChnToZ.VRC.UdonKatana {
     [ProcessingBlockPriority(Priority = 997)]
     internal class TypeCastBlock: CallableBlockBase {
-        public TypeCastBlock(Node current, AssemblerState state, VariableName explicitTarget = default)
-            : base(current, state, explicitTarget) {}
+        public TypeCastBlock(Node current, AssemblerState state)
+            : base(current, state) {}
 
         protected override bool ResolveBlockType(out Type type) {
-            var tagStr = Convert.ToString(contentNode);
+            if (current.Count == 0 && !isQuotedNoArgNode) {
+                type = null;
+                return false;
+            }
+            var tagStr = Convert.ToString(current);
             if (tagStr.StartsWith("!") && AssemblerStateHelper.typeDefs.TryGetValue(tagStr.Substring(1), out type))
                 return true;
             type = null;
@@ -18,13 +22,18 @@ namespace JLChnToZ.VRC.UdonKatana {
         }
         
         protected override bool Process(Stack<ProcessingBlock> stack) {
-            if (i < contentNode.Count) {
-                result = GetTempVariable(contentNode[i]);
-                stack.Push(Create(contentNode[i], state, result));
+            if (i < current.Count) {
+                result = GetTempVariable(current[i]);
+                stack.Push(Create(current[i], state, result));
                 i++;
                 return false;
             }
-            state.builder.EmitCopy(result, ExplicitTarget);
+            if (ExplicitTarget.IsValid) {
+                if (result.IsValid)
+                    state.builder.EmitCopy(result, ExplicitTarget);
+                else
+                    state.builder.EmitCopy(null, ExplicitTarget);
+            }
             ReturnAllTempVariables();
             return true;
         }

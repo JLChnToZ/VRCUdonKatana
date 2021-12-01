@@ -9,8 +9,8 @@ namespace JLChnToZ.VRC.UdonKatana {
         JumpInstructionBase jumpInst;
         readonly List<JumpInstructionBase> jumpToEnd = new List<JumpInstructionBase>();
         
-        public IfBlock(Node current, AssemblerState state, VariableName explicitTarget = default)
-            : base(current, state, explicitTarget) {}
+        public IfBlock(Node current, AssemblerState state)
+            : base(current, state) {}
 
         protected override bool ResolveBlockType(out Type type) {
             if (Convert.ToString(current) == "if" && current.Count > 1) {
@@ -53,8 +53,9 @@ namespace JLChnToZ.VRC.UdonKatana {
         protected override bool Process(Stack<ProcessingBlock> stack) {
             if (i >= current.Count) {
                 var dest = state.builder.LastInstruction;
-                foreach (var jumpInst in jumpToEnd)
-                    jumpInst.destination = dest;
+                foreach (var jump2 in jumpToEnd)
+                    jump2.destination = dest;
+                if (jumpInst != null) jumpInst.destination = dest;
                 jumpToEnd.Clear();
                 ReturnAllTempVariables();
                 return true;
@@ -65,7 +66,10 @@ namespace JLChnToZ.VRC.UdonKatana {
                     if (i > 0) {
                         var jump2 = state.builder.EmitJump();
                         jumpToEnd.Add(jump2);
-                        if (jumpInst != null) jumpInst.destination = jump2;
+                        if (jumpInst != null) {
+                            jumpInst.destination = jump2;
+                            jumpInst = null;
+                        }
                     }
                     if (i < current.Count - 1)
                         stack.Push(Create(child, state, result = GetTempVariable(child)));

@@ -3,13 +3,11 @@ using JLChnToZ.Katana.Expressions;
 
 namespace JLChnToZ.VRC.UdonKatana {
     internal abstract class CallableBlockBase: ProcessingBlock {
-        protected readonly Node contentNode;
+        protected readonly bool isQuotedNoArgNode;
 
-        protected CallableBlockBase(Node current, AssemblerState state, VariableName explicitTarget = default)
-            : base(current, state, explicitTarget) {
-            contentNode = current;
-            while (contentNode.Tag == null && contentNode.Count == 1)
-                contentNode = contentNode[0];
+        protected CallableBlockBase(Node current, AssemblerState state)
+            : base(current, state) {
+            isQuotedNoArgNode = NoTagBlock.IsNoArgsNode(current);
         }
     }
 }

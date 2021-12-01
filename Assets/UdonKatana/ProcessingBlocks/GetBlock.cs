@@ -6,8 +6,8 @@ using JLChnToZ.Katana.Expressions;
 namespace JLChnToZ.VRC.UdonKatana {
     [ProcessingBlockPriority(Priority = 0)]
     internal class GetBlock: ProcessingBlock {
-        public GetBlock(Node current, AssemblerState state, VariableName explicitTarget = default)
-            : base(current, state, explicitTarget) {}
+        public GetBlock(Node current, AssemblerState state)
+            : base(current, state) {}
 
         protected override bool BeforeResolveBlockType() => Convert.ToString(current) != "$" || current.Count != 1;
 

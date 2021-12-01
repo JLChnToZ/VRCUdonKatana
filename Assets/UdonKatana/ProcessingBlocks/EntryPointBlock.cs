@@ -6,8 +6,8 @@ using JLChnToZ.Katana.Expressions;
 namespace JLChnToZ.VRC.UdonKatana {
     [ProcessingBlockPriority(Priority = 0)]
     internal class EntryPointBlock: ProcessingBlock {
-        public EntryPointBlock(Node current, AssemblerState state, VariableName explicitTarget = default)
-            : base(current, state, explicitTarget) {}
+        public EntryPointBlock(Node current, AssemblerState state)
+            : base(current, state) {}
         protected override bool BeforeResolveBlockType() {
             if (Convert.ToString(current) == "when") DefineEntryPoint(true);
             return true;

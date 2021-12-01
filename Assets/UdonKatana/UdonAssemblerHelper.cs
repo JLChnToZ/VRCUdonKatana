@@ -218,7 +218,7 @@ namespace JLChnToZ.VRC.UdonLowLevel {
         private void DoTypeCheck(VariableName variableName, Type type, bool strict = false) {
             if (!variableName.IsValid) throw new ArgumentNullException(nameof(variableName));
             if (variableDefs.TryGetValue(variableName, out var def)) {
-                if (typeCheck && type != null && (strict ? def.type != type : !def.type.IsAssignableFrom(type) && type.IsAssignableFrom(def.type)))
+                if (typeCheck && type != null && (strict ? def.type != type : !def.type.IsAssignableFrom(type) && !type.IsAssignableFrom(def.type)))
                     throw new ArgumentException($"Type mismatch: expected variable `{variableName}` to be `{type}` but got `{def.type}`.");
             } else DefineVariable(variableName, type);
         }
@@ -271,7 +271,7 @@ namespace JLChnToZ.VRC.UdonLowLevel {
                                 if (type == null) {
                                     varDef.type = paramDef.type;
                                     variableDefs[name] = varDef;
-                                } else if (!type.IsAssignableFrom(paramDef.type))
+                                } else if (!type.IsAssignableFrom(paramDef.type) && !paramDef.type.IsAssignableFrom(type))
                                     throw new ArgumentException($"Type mismatch: Expected parameter {i} of `{methodName}` to be `{paramDef.type}` but got `{type}`.");
                                 break;
                             case UdonNodeParameter.ParameterType.IN_OUT:
@@ -464,7 +464,7 @@ namespace JLChnToZ.VRC.UdonLowLevel {
             this.destination = destination;
         protected JumpInstructionBase(uint destinationAddr) =>
             this.destinationAddr = destinationAddr;
-        public uint DestinationAddr => (destination?.offset + Size) ?? destinationAddr;
+        public uint DestinationAddr => destination != null ? destination.offset + destination.Size : destinationAddr;
     }
 
     public class JumpInstruction : JumpInstructionBase {

@@ -44,7 +44,7 @@ namespace JLChnToZ.VRC.UdonKatana {
             var queue = new Queue<Node>();
             queue.Enqueue(node);
             // Walk through the node tree from the deepest.
-            var ctorArguments = new object[] { node, state, default(VariableName) };
+            var ctorArguments = new object[] { node, state };
             var cache = new Dictionary<(Node, Type), ProcessingBlock>();
             var parentMap = new Dictionary<Node, Node>();
             while (queue.Count > 0) {
@@ -76,7 +76,7 @@ namespace JLChnToZ.VRC.UdonKatana {
                         matches = true;
                         break;
                     }
-                if (!matches) throw new Exception($"No matching handler for node `{current.Tag}`.");
+                if (!matches) throw new Exception($"No matching handler for node `{current.Tag}` (parent: `{parentMap[current]}`).");
             }
         }
 
@@ -96,12 +96,10 @@ namespace JLChnToZ.VRC.UdonKatana {
 
         protected ProcessingBlock(
             Node current,
-            AssemblerState state,
-            VariableName explicitTarget = default
+            AssemblerState state
         ) {
             this.current = current;
             this.state = state;
-            ExplicitTarget = explicitTarget;
         }
 
         protected virtual bool BeforeResolveBlockType() => true;

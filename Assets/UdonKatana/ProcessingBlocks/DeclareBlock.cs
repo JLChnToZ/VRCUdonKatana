@@ -6,11 +6,14 @@ using JLChnToZ.Katana.Expressions;
 namespace JLChnToZ.VRC.UdonKatana {
     [ProcessingBlockPriority(Priority = 0)]
     internal class DeclareBlock: ProcessingBlock {
-        public DeclareBlock(Node current, AssemblerState state, VariableName explicitTarget = default)
-            : base(current, state, explicitTarget) {}
+        public DeclareBlock(Node current, AssemblerState state)
+            : base(current, state) {}
 
         protected override bool BeforeResolveBlockType() {
-            if (Convert.ToString(current) == "var") Declare();
+            if (Convert.ToString(current) == "var" && current.Count > 0) {
+                Declare();
+                return false;
+            }
             return true;
         }
 
@@ -43,15 +46,34 @@ namespace JLChnToZ.VRC.UdonKatana {
                     case "sync": attr |= VariableAttributes.SyncNone; break;
                     case "linearsync": attr |= VariableAttributes.SyncLinear; break;
                     case "smoothsync": attr |= VariableAttributes.SyncSmooth; break;
-                    case "this": attr |= VariableAttributes.DefaultThis; break;
                     default:
                         if (AssemblerStateHelper.typeDefs.TryGetValue(tag, out var gotType))
                             type = gotType;
                         break;
                 }
             }
-            var defaultValue = current.Count > 1 ? current[current.Count - 1].Tag : null;
+            var valueNode = current.Count > 1 ? current[current.Count - 1] : null;
+            object defaultValue = null;
+            if (valueNode == null) {}
+            else if (valueNode.Count == 1 && valueNode.Tag == null)
+                switch (Convert.ToString(valueNode[0]).ToLower()) {
+                    case "this": attr |= VariableAttributes.DefaultThis; break;
+                    case "create": defaultValue = ParseDefaultValue(type, valueNode[0]); break;
+                }
+            else if (valueNode.Count > 1)
+                switch (Convert.ToString(valueNode).ToLower()) {
+                    case "create": defaultValue = ParseDefaultValue(type, valueNode); break;
+                }
+            else
+                defaultValue = valueNode.Tag;
             state.builder.DefineVariable(Convert.ToString(current[0]), type, attr, defaultValue);
+        }
+
+        private static object ParseDefaultValue(Type type, IList<Node> valueNode) {
+            var parameters = new object[valueNode.Count];
+            for (int i = 0; i < parameters.Length; i++)
+                parameters[i] = valueNode[i].Tag;
+            return Activator.CreateInstance(type ?? typeof(object), parameters);
         }
     }
 }

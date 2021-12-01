@@ -10,8 +10,8 @@ namespace JLChnToZ.VRC.UdonKatana {
         const string CreateArray = "SystemArray.__CreateInstance__SystemType_SystemInt32__SystemArray";
 
         VariableName tempValue;
-        public ArrayFillBlock(Node current, AssemblerState state, VariableName explicitTarget = default)
-            : base(current, state, explicitTarget) {}
+        public ArrayFillBlock(Node current, AssemblerState state)
+            : base(current, state) {}
 
         protected override bool ResolveBlockType(out Type type) {
             var tag = Convert.ToString(current.Tag);

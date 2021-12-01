@@ -9,8 +9,8 @@ namespace JLChnToZ.VRC.UdonKatana {
         JumpInstructionBase jumpInst;
         UdonInstruction startInst;
         
-        public WhileBlock(Node current, AssemblerState state, VariableName explicitTarget = default)
-            : base(current, state, explicitTarget) {}
+        public WhileBlock(Node current, AssemblerState state)
+            : base(current, state) {}
 
         protected override bool ResolveBlockType(out Type type) {
             if (Convert.ToString(current) == "while" && current.Count == 2) {

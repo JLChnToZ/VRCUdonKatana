@@ -6,8 +6,8 @@ using JLChnToZ.Katana.Expressions;
 namespace JLChnToZ.VRC.UdonKatana {
     [ProcessingBlockPriority(Priority = 0)]
     internal class UdonAssemblyBlock: ProcessingBlock {
-        public UdonAssemblyBlock(Node current, AssemblerState state, VariableName explicitTarget = default)
-            : base(current, state, explicitTarget) {}
+        public UdonAssemblyBlock(Node current, AssemblerState state)
+            : base(current, state) {}
 
         protected override bool BeforeResolveBlockType() => Convert.ToString(current) != "uasm";
 

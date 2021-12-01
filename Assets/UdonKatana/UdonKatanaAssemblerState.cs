@@ -143,5 +143,24 @@ namespace JLChnToZ.VRC.UdonKatana {
             else if (!list[i].type.IsAssignableFrom(def.type))
                 list[i] = def;
         }
+
+        [UnityEditor.MenuItem("Tools/Udon Katana/Copy Supported Methods")]
+        static void CopyNames() {
+            var sb = new System.Text.StringBuilder();
+            foreach (var kv in methodDefs) {
+                sb.AppendLine($"- {kv.Key.Item1} ({kv.Key.Item2})");
+                foreach (var overload in kv.Value) {
+                    sb.Append("   - ");
+                    bool first = true;
+                    foreach (var parameter in overload.parameters) {
+                        if (first) first = false;
+                        else sb.Append(", ");
+                        sb.Append($"[{parameter.parameterType}] {parameter.type.Name}");
+                    }
+                    sb.AppendLine();
+                }
+            }
+            UnityEditor.EditorGUIUtility.systemCopyBuffer = sb.ToString();
+        }
     }
 }

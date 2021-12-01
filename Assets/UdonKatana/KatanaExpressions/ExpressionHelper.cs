@@ -284,7 +284,7 @@ namespace JLChnToZ.Katana.Expressions {
                                         if (!CanIgnoreChar(chr))
                                             throw new SyntaxException($"Unexpected '{c}'", source, i);
                                 sb.Clear();
-                                mode = TokenMode.InStringEscape;
+                                mode = TokenMode.InString;
                                 stringPairChar = c;
                                 hasQuote = true;
                                 break;
