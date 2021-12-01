@@ -27,7 +27,7 @@ namespace JLChnToZ.VRC.UdonKatana {
             if (state.entryPoints.TryGetValue(tag, out var ep)) {
                 state.builder.EmitCopyOffset(ep.returnPointer, (int)JumpInstructionBase.SIZE);
                 if (ep.lastInstruction != null)
-                    state.builder.EmitJump(ep.lastInstruction.offset + ep.lastInstruction.Size);
+                    state.builder.EmitJump(ep.lastInstruction.offset);
                 else
                     ep.landingPoints.Add(state.builder.EmitJump(0));
                 state.builder.EmitCopy(UdonAssemblyBuilder.ReturnAddress, ep.returnPointer);

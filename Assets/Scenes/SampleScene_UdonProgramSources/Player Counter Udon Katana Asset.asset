@@ -1,0 +1,1180 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34775e931ff2f0f459e7bbb913673081, type: 3}
+  m_Name: Player Counter Udon Katana Asset
+  m_EditorClassIdentifier: 
+  serializedUdonProgramAsset: {fileID: 11400000, guid: 5fcca3fb1027b7149bba8a46dfb4f2f4,
+    type: 2}
+  udonAssembly: '.data_start
+
+    .export output
+
+    player: %VRCSDKBaseVRCPlayerApi,
+    null
+
+    playerList: %VRCSDKBaseVRCPlayerApiArray, null
+
+    tempPlayerList:
+    %VRCSDKBaseVRCPlayerApiArray, null
+
+    count: %SystemInt32, null
+
+    index:
+    %SystemInt32, null
+
+    text: %SystemString, null
+
+    output: %UnityEngineUIText,
+    null
+
+    ___onPlayerJoined_return: %SystemUInt32, null
+
+    ___onPlayerLeft_return:
+    %SystemUInt32, null
+
+    ___updateValues_return: %SystemUInt32, null
+
+    onPlayerLeftPlayer:
+    %VRCSDKBaseVRCPlayerApi, null
+
+    onPlayerJoinedPlayer: %VRCSDKBaseVRCPlayerApi,
+    null
+
+    __temp_SystemString_0: %SystemString, null
+
+    __const_String_PlayerJoined:
+    %SystemString, null
+
+    __temp_SystemBoolean_0: %SystemBoolean, null
+
+    __temp_VRCSDKBaseVRCPlayerApiArray_0:
+    %VRCSDKBaseVRCPlayerApiArray, null
+
+    __temp_SystemObject_0: %SystemObject,
+    null
+
+    __const_nil: %SystemObject, null
+
+    __const_String_Player_list_is_null:
+    %SystemString, null
+
+    __temp_SystemInt32_0: %SystemInt32, null
+
+    __const_Int32_10:
+    %SystemInt32, null
+
+    __temp_SystemString_1: %SystemString, null
+
+    __temp_SystemInt32_1:
+    %SystemInt32, null
+
+    __const_String_Player_list_is_not_null: %SystemString,
+    null
+
+    __temp_SystemInt32_2: %SystemInt32, null
+
+    __temp_VRCSDKBaseVRCPlayerApiArray_1:
+    %VRCSDKBaseVRCPlayerApiArray, null
+
+    __temp_SystemInt32_3: %SystemInt32,
+    null
+
+    __temp_VRCSDKBaseVRCPlayerApiArray_2: %VRCSDKBaseVRCPlayerApiArray,
+    null
+
+    __temp_VRCSDKBaseVRCPlayerApiArray_3: %VRCSDKBaseVRCPlayerApiArray,
+    null
+
+    __temp_VRCSDKBaseVRCPlayerApi_0: %VRCSDKBaseVRCPlayerApi, null
+
+    __temp_SystemInt32_4:
+    %SystemInt32, null
+
+    __temp_SystemInt32_5: %SystemInt32, null
+
+    __const_Int32_1:
+    %SystemInt32, null
+
+    __const_UInt32_872: %SystemUInt32, null
+
+    __const_UInt32_4294967288:
+    %SystemUInt32, null
+
+    __returnValue: %SystemObject, null
+
+    __temp_SystemString_2:
+    %SystemString, null
+
+    __const_String_PlayerLeft: %SystemString, null
+
+    __temp_SystemBoolean_1:
+    %SystemBoolean, null
+
+    __temp_VRCSDKBaseVRCPlayerApiArray_4: %VRCSDKBaseVRCPlayerApiArray,
+    null
+
+    __const_Int32_0: %SystemInt32, null
+
+    __temp_SystemInt32_6: %SystemInt32,
+    null
+
+    __temp_SystemInt32_7: %SystemInt32, null
+
+    __temp_SystemObject_1:
+    %SystemObject, null
+
+    __temp_VRCSDKBaseVRCPlayerApiArray_5: %VRCSDKBaseVRCPlayerApiArray,
+    null
+
+    __temp_SystemInt32_8: %SystemInt32, null
+
+    __const_UInt32_1540:
+    %SystemUInt32, null
+
+    __const_String_PlayerUpdateValues: %SystemString, null
+
+    __temp_SystemString_3:
+    %SystemString, null
+
+    __const_String_0_Online_Players_: %SystemString, null
+
+    __temp_SystemBoolean_2:
+    %SystemBoolean, null
+
+    __temp_SystemInt32_9: %SystemInt32, null
+
+    __temp_SystemInt32_10:
+    %SystemInt32, null
+
+    __temp_SystemObject_2: %SystemObject, null
+
+    __temp_VRCSDKBaseVRCPlayerApiArray_6:
+    %VRCSDKBaseVRCPlayerApiArray, null
+
+    __temp_SystemString_4: %SystemString,
+    null
+
+    __temp_SystemString_5: %SystemString, null
+
+    __const_String_0_1_2_3_4_:
+    %SystemString, null
+
+    __temp_SystemObjectArray_0: %SystemObjectArray, null
+
+    __const_RuntimeType_System_Object:
+    %SystemObject, null
+
+    __const_Int32_6: %SystemInt32, null
+
+    __temp_VRCSDKBaseVRCPlayerApi_1:
+    %VRCSDKBaseVRCPlayerApi, null
+
+    __temp_VRCSDKBaseVRCPlayerApi_2: %VRCSDKBaseVRCPlayerApi,
+    null
+
+    __const_String_VR: %SystemString, null
+
+    __const_String_Desktop:
+    %SystemString, null
+
+    __const_Int32_2: %SystemInt32, null
+
+    __temp_SystemBoolean_3:
+    %SystemBoolean, null
+
+    __const_String_ME_: %SystemString, null
+
+    __const_Int32_3:
+    %SystemInt32, null
+
+    __temp_VRCSDKBaseVRCPlayerApi_3: %VRCSDKBaseVRCPlayerApi,
+    null
+
+    __const_String_Master_: %SystemString, null
+
+    __const_Int32_4:
+    %SystemInt32, null
+
+    __const_Int32_5: %SystemInt32, null
+
+    __temp_SystemInt32_11:
+    %SystemInt32, null
+
+    __temp_UnityEngineUIText_0: %UnityEngineUIText, null
+
+    .data_end
+
+    .code_start
+
+    .export
+    _onPlayerJoined
+
+    _onPlayerJoined:
+
+    PUSH, __const_String_PlayerJoined
+
+    PUSH,
+    __temp_SystemString_0
+
+    COPY
+
+    PUSH, __temp_SystemString_0
+
+    EXTERN,
+    "UnityEngineDebug.__Log__SystemObject__SystemVoid"
+
+    PUSH, playerList
+
+    PUSH,
+    __temp_VRCSDKBaseVRCPlayerApiArray_0
+
+    COPY
+
+    PUSH, __const_nil
+
+    PUSH,
+    __temp_SystemObject_0
+
+    COPY
+
+    PUSH, __temp_VRCSDKBaseVRCPlayerApiArray_0
+
+    PUSH,
+    __temp_SystemObject_0
+
+    PUSH, __temp_SystemBoolean_0
+
+    EXTERN, "SystemObject.__op_Equality__SystemObject_SystemObject__SystemBoolean"
+
+    PUSH,
+    __temp_SystemBoolean_0
+
+    JUMP_IF_FALSE, 0x000000FC
+
+    PUSH, __const_String_Player_list_is_null
+
+    PUSH,
+    __temp_SystemString_0
+
+    COPY
+
+    PUSH, __temp_SystemString_0
+
+    EXTERN,
+    "UnityEngineDebug.__Log__SystemObject__SystemVoid"
+
+    PUSH, __const_Int32_10
+
+    PUSH,
+    __temp_SystemInt32_0
+
+    COPY
+
+    PUSH, __temp_SystemInt32_0
+
+    PUSH,
+    playerList
+
+    EXTERN, "VRCSDKBaseVRCPlayerApiArray.__ctor__SystemInt32__VRCSDKBaseVRCPlayerApiArray"
+
+    PUSH,
+    __const_String_Player_list_is_null
+
+    PUSH, __temp_SystemString_1
+
+    COPY
+
+    PUSH,
+    __temp_SystemString_1
+
+    EXTERN, "UnityEngineDebug.__Log__SystemObject__SystemVoid"
+
+    NOP
+
+    JUMP,
+    0x000002A8
+
+    PUSH, playerList
+
+    PUSH, __temp_VRCSDKBaseVRCPlayerApiArray_0
+
+    COPY
+
+    PUSH,
+    __temp_VRCSDKBaseVRCPlayerApiArray_0
+
+    PUSH, __temp_SystemInt32_0
+
+    EXTERN,
+    "VRCSDKBaseVRCPlayerApiArray.__get_Length__SystemInt32"
+
+    PUSH, count
+
+    PUSH,
+    __temp_SystemInt32_1
+
+    COPY
+
+    PUSH, __temp_SystemInt32_0
+
+    PUSH,
+    __temp_SystemInt32_1
+
+    PUSH, __temp_SystemBoolean_0
+
+    EXTERN, "SystemInt32.__op_LessThanOrEqual__SystemInt32_SystemInt32__SystemBoolean"
+
+    PUSH,
+    __temp_SystemBoolean_0
+
+    JUMP_IF_FALSE, 0x000002A8
+
+    PUSH, __const_String_Player_list_is_not_null
+
+    PUSH,
+    __temp_SystemString_1
+
+    COPY
+
+    PUSH, __temp_SystemString_1
+
+    EXTERN,
+    "UnityEngineDebug.__Log__SystemObject__SystemVoid"
+
+    PUSH, playerList
+
+    PUSH,
+    __temp_VRCSDKBaseVRCPlayerApiArray_1
+
+    COPY
+
+    PUSH, __temp_VRCSDKBaseVRCPlayerApiArray_1
+
+    PUSH,
+    __temp_SystemInt32_2
+
+    EXTERN, "VRCSDKBaseVRCPlayerApiArray.__get_Length__SystemInt32"
+
+    PUSH,
+    __const_Int32_10
+
+    PUSH, __temp_SystemInt32_3
+
+    COPY
+
+    PUSH, __temp_SystemInt32_2
+
+    PUSH,
+    __temp_SystemInt32_3
+
+    PUSH, __temp_SystemInt32_1
+
+    EXTERN, "SystemInt32.__op_Addition__SystemInt32_SystemInt32__SystemInt32"
+
+    PUSH,
+    __temp_SystemInt32_1
+
+    PUSH, tempPlayerList
+
+    EXTERN, "VRCSDKBaseVRCPlayerApiArray.__ctor__SystemInt32__VRCSDKBaseVRCPlayerApiArray"
+
+    PUSH,
+    playerList
+
+    PUSH, __temp_VRCSDKBaseVRCPlayerApiArray_1
+
+    COPY
+
+    PUSH,
+    tempPlayerList
+
+    PUSH, __temp_VRCSDKBaseVRCPlayerApiArray_2
+
+    COPY
+
+    PUSH,
+    playerList
+
+    PUSH, __temp_VRCSDKBaseVRCPlayerApiArray_3
+
+    COPY
+
+    PUSH,
+    __temp_VRCSDKBaseVRCPlayerApiArray_3
+
+    PUSH, __temp_SystemInt32_2
+
+    EXTERN,
+    "VRCSDKBaseVRCPlayerApiArray.__get_Length__SystemInt32"
+
+    PUSH, __temp_VRCSDKBaseVRCPlayerApiArray_1
+
+    PUSH,
+    __temp_VRCSDKBaseVRCPlayerApiArray_2
+
+    PUSH, __temp_SystemInt32_2
+
+    EXTERN,
+    "VRCSDKBaseVRCPlayerApiArray.__CopyTo__SystemArray_SystemInt32__SystemVoid"
+
+    PUSH,
+    tempPlayerList
+
+    PUSH, playerList
+
+    COPY
+
+    PUSH, __const_nil
+
+    PUSH,
+    tempPlayerList
+
+    COPY
+
+    NOP
+
+    PUSH, playerList
+
+    PUSH, __temp_VRCSDKBaseVRCPlayerApiArray_3
+
+    COPY
+
+    PUSH,
+    onPlayerJoinedPlayer
+
+    PUSH, __temp_VRCSDKBaseVRCPlayerApi_0
+
+    COPY
+
+    PUSH,
+    count
+
+    PUSH, __temp_SystemInt32_3
+
+    COPY
+
+    PUSH, __temp_VRCSDKBaseVRCPlayerApiArray_3
+
+    PUSH,
+    __temp_VRCSDKBaseVRCPlayerApi_0
+
+    PUSH, __temp_SystemInt32_3
+
+    EXTERN,
+    "VRCSDKBaseVRCPlayerApiArray.__SetValue__SystemObject_SystemInt32__SystemVoid"
+
+    PUSH,
+    count
+
+    PUSH, __temp_SystemInt32_4
+
+    COPY
+
+    PUSH, __const_Int32_1
+
+    PUSH,
+    __temp_SystemInt32_5
+
+    COPY
+
+    PUSH, __temp_SystemInt32_4
+
+    PUSH,
+    __temp_SystemInt32_5
+
+    PUSH, count
+
+    EXTERN, "SystemInt32.__op_Addition__SystemInt32_SystemInt32__SystemInt32"
+
+    PUSH,
+    __const_UInt32_872
+
+    PUSH, ___updateValues_return
+
+    COPY
+
+    JUMP,
+    0x0000063C
+
+    PUSH, __const_UInt32_4294967288
+
+    PUSH, ___updateValues_return
+
+    COPY
+
+    PUSH,
+    __const_nil
+
+    PUSH, __returnValue
+
+    COPY
+
+    JUMP_INDIRECT, ___onPlayerJoined_return
+
+    .export
+    _onPlayerLeft
+
+    _onPlayerLeft:
+
+    PUSH, __const_String_PlayerLeft
+
+    PUSH,
+    __temp_SystemString_2
+
+    COPY
+
+    PUSH, __temp_SystemString_2
+
+    EXTERN,
+    "UnityEngineDebug.__Log__SystemObject__SystemVoid"
+
+    PUSH, playerList
+
+    PUSH,
+    __temp_VRCSDKBaseVRCPlayerApiArray_2
+
+    COPY
+
+    PUSH, __const_nil
+
+    PUSH,
+    __temp_SystemObject_0
+
+    COPY
+
+    PUSH, __temp_VRCSDKBaseVRCPlayerApiArray_2
+
+    PUSH,
+    __temp_SystemObject_0
+
+    PUSH, __temp_SystemBoolean_1
+
+    EXTERN, "SystemObject.__op_Inequality__SystemObject_SystemObject__SystemBoolean"
+
+    PUSH,
+    __temp_SystemBoolean_1
+
+    JUMP_IF_FALSE, 0x00000620
+
+    PUSH, playerList
+
+    PUSH,
+    __temp_VRCSDKBaseVRCPlayerApiArray_4
+
+    COPY
+
+    PUSH, onPlayerLeftPlayer
+
+    PUSH,
+    __temp_VRCSDKBaseVRCPlayerApi_0
+
+    COPY
+
+    PUSH, __temp_VRCSDKBaseVRCPlayerApiArray_4
+
+    PUSH,
+    __temp_VRCSDKBaseVRCPlayerApi_0
+
+    PUSH, index
+
+    EXTERN, "SystemArray.__IndexOf__SystemArray_SystemObject__SystemInt32"
+
+    PUSH,
+    index
+
+    PUSH, __temp_SystemInt32_4
+
+    COPY
+
+    PUSH, __const_Int32_0
+
+    PUSH,
+    __temp_SystemInt32_5
+
+    COPY
+
+    PUSH, __temp_SystemInt32_4
+
+    PUSH,
+    __temp_SystemInt32_5
+
+    PUSH, __temp_SystemBoolean_1
+
+    EXTERN, "SystemInt32.__op_GreaterThanOrEqual__SystemInt32_SystemInt32__SystemBoolean"
+
+    PUSH,
+    __temp_SystemBoolean_1
+
+    JUMP_IF_FALSE, 0x0000061C
+
+    PUSH, count
+
+    PUSH,
+    __temp_SystemInt32_6
+
+    COPY
+
+    PUSH, __const_Int32_1
+
+    PUSH, __temp_SystemInt32_7
+
+    COPY
+
+    PUSH,
+    __temp_SystemInt32_6
+
+    PUSH, __temp_SystemInt32_7
+
+    PUSH, count
+
+    EXTERN,
+    "SystemInt32.__op_Subtraction__SystemInt32_SystemInt32__SystemInt32"
+
+    PUSH,
+    playerList
+
+    PUSH, __temp_VRCSDKBaseVRCPlayerApiArray_4
+
+    COPY
+
+    PUSH,
+    playerList
+
+    PUSH, __temp_VRCSDKBaseVRCPlayerApiArray_5
+
+    COPY
+
+    PUSH,
+    count
+
+    PUSH, __temp_SystemInt32_6
+
+    COPY
+
+    PUSH, __temp_VRCSDKBaseVRCPlayerApiArray_5
+
+    PUSH,
+    __temp_SystemInt32_6
+
+    PUSH, __temp_SystemObject_1
+
+    EXTERN, "VRCSDKBaseVRCPlayerApiArray.__GetValue__SystemInt32__SystemObject"
+
+    PUSH,
+    index
+
+    PUSH, __temp_SystemInt32_7
+
+    COPY
+
+    PUSH, __temp_VRCSDKBaseVRCPlayerApiArray_4
+
+    PUSH,
+    __temp_SystemObject_1
+
+    PUSH, __temp_SystemInt32_7
+
+    EXTERN, "VRCSDKBaseVRCPlayerApiArray.__SetValue__SystemObject_SystemInt32__SystemVoid"
+
+    PUSH,
+    playerList
+
+    PUSH, __temp_VRCSDKBaseVRCPlayerApiArray_5
+
+    COPY
+
+    PUSH,
+    __const_nil
+
+    PUSH, __temp_SystemObject_1
+
+    COPY
+
+    PUSH, count
+
+    PUSH,
+    __temp_SystemInt32_8
+
+    COPY
+
+    PUSH, __temp_VRCSDKBaseVRCPlayerApiArray_5
+
+    PUSH,
+    __temp_SystemObject_1
+
+    PUSH, __temp_SystemInt32_8
+
+    EXTERN, "VRCSDKBaseVRCPlayerApiArray.__SetValue__SystemObject_SystemInt32__SystemVoid"
+
+    PUSH,
+    __const_UInt32_1540
+
+    PUSH, ___updateValues_return
+
+    COPY
+
+    JUMP,
+    0x0000063C
+
+    PUSH, __const_UInt32_4294967288
+
+    PUSH, ___updateValues_return
+
+    COPY
+
+    NOP
+
+    NOP
+
+    PUSH,
+    __const_nil
+
+    PUSH, __returnValue
+
+    COPY
+
+    JUMP_INDIRECT, ___onPlayerLeft_return
+
+    .export
+    _updateValues
+
+    _updateValues:
+
+    PUSH, __const_String_PlayerUpdateValues
+
+    PUSH,
+    __temp_SystemString_2
+
+    COPY
+
+    PUSH, __temp_SystemString_2
+
+    EXTERN,
+    "UnityEngineDebug.__Log__SystemObject__SystemVoid"
+
+    PUSH, __const_Int32_0
+
+    PUSH,
+    index
+
+    COPY
+
+    PUSH, __const_String_0_Online_Players_
+
+    PUSH, __temp_SystemString_3
+
+    COPY
+
+    PUSH,
+    count
+
+    PUSH, __temp_SystemInt32_8
+
+    COPY
+
+    PUSH, __temp_SystemString_3
+
+    PUSH,
+    __temp_SystemInt32_8
+
+    PUSH, text
+
+    EXTERN, "SystemString.__Format__SystemString_SystemObject__SystemString"
+
+    PUSH,
+    index
+
+    PUSH, __temp_SystemInt32_9
+
+    COPY
+
+    PUSH, count
+
+    PUSH,
+    __temp_SystemInt32_10
+
+    COPY
+
+    PUSH, __temp_SystemInt32_9
+
+    PUSH,
+    __temp_SystemInt32_10
+
+    PUSH, __temp_SystemBoolean_2
+
+    EXTERN, "SystemInt32.__op_LessThan__SystemInt32_SystemInt32__SystemBoolean"
+
+    PUSH,
+    __temp_SystemBoolean_2
+
+    JUMP_IF_FALSE, 0x00000ABC
+
+    PUSH, playerList
+
+    PUSH,
+    __temp_VRCSDKBaseVRCPlayerApiArray_6
+
+    COPY
+
+    PUSH, index
+
+    PUSH,
+    __temp_SystemInt32_9
+
+    COPY
+
+    PUSH, __temp_VRCSDKBaseVRCPlayerApiArray_6
+
+    PUSH,
+    __temp_SystemInt32_9
+
+    PUSH, __temp_SystemObject_2
+
+    EXTERN, "VRCSDKBaseVRCPlayerApiArray.__GetValue__SystemInt32__SystemObject"
+
+    PUSH,
+    __temp_SystemObject_2
+
+    PUSH, player
+
+    COPY
+
+    PUSH, text
+
+    PUSH,
+    __temp_SystemString_3
+
+    COPY
+
+    PUSH, __const_String_0_1_2_3_4_
+
+    PUSH,
+    __temp_SystemString_5
+
+    COPY
+
+    PUSH, __const_RuntimeType_System_Object
+
+    PUSH,
+    __const_Int32_6
+
+    PUSH, __temp_SystemObjectArray_0
+
+    EXTERN, "SystemArray.__CreateInstance__SystemType_SystemInt32__SystemArray"
+
+    PUSH,
+    player
+
+    PUSH, __temp_VRCSDKBaseVRCPlayerApi_1
+
+    COPY
+
+    PUSH, __temp_VRCSDKBaseVRCPlayerApi_1
+
+    PUSH,
+    __temp_SystemObject_2
+
+    EXTERN, "VRCSDKBaseVRCPlayerApi.__get_displayName__SystemString"
+
+    PUSH,
+    __temp_SystemObjectArray_0
+
+    PUSH, __temp_SystemObject_2
+
+    PUSH, __const_Int32_0
+
+    EXTERN,
+    "SystemArray.__SetValue__SystemObject_SystemInt32__SystemVoid"
+
+    PUSH, player
+
+    PUSH,
+    __temp_VRCSDKBaseVRCPlayerApi_1
+
+    COPY
+
+    PUSH, __temp_VRCSDKBaseVRCPlayerApi_1
+
+    PUSH,
+    __temp_SystemObject_2
+
+    EXTERN, "VRCSDKBaseVRCPlayerApi.__GetPlayerId__VRCSDKBaseVRCPlayerApi__SystemInt32"
+
+    PUSH,
+    __temp_SystemObjectArray_0
+
+    PUSH, __temp_SystemObject_2
+
+    PUSH, __const_Int32_1
+
+    EXTERN,
+    "SystemArray.__SetValue__SystemObject_SystemInt32__SystemVoid"
+
+    PUSH, player
+
+    PUSH,
+    __temp_VRCSDKBaseVRCPlayerApi_2
+
+    COPY
+
+    PUSH, __temp_VRCSDKBaseVRCPlayerApi_2
+
+    PUSH,
+    __temp_SystemBoolean_2
+
+    EXTERN, "VRCSDKBaseVRCPlayerApi.__IsUserInVR__SystemBoolean"
+
+    PUSH,
+    __temp_SystemBoolean_2
+
+    JUMP_IF_FALSE, 0x000008A8
+
+    PUSH, __const_String_VR
+
+    PUSH,
+    __temp_SystemObject_2
+
+    COPY
+
+    JUMP, 0x000008BC
+
+    PUSH, __const_String_Desktop
+
+    PUSH,
+    __temp_SystemObject_2
+
+    COPY
+
+    PUSH, __temp_SystemObjectArray_0
+
+    PUSH,
+    __temp_SystemObject_2
+
+    PUSH, __const_Int32_2
+
+    EXTERN, "SystemArray.__SetValue__SystemObject_SystemInt32__SystemVoid"
+
+    PUSH,
+    player
+
+    PUSH, __temp_VRCSDKBaseVRCPlayerApi_2
+
+    COPY
+
+    PUSH, __temp_VRCSDKBaseVRCPlayerApi_2
+
+    PUSH,
+    __temp_SystemBoolean_3
+
+    EXTERN, "VRCSDKBaseVRCPlayerApi.__get_isLocal__SystemBoolean"
+
+    PUSH,
+    __temp_SystemBoolean_3
+
+    JUMP_IF_FALSE, 0x00000934
+
+    PUSH, __const_String_ME_
+
+    PUSH,
+    __temp_SystemObject_2
+
+    COPY
+
+    JUMP, 0x00000948
+
+    PUSH, __const_nil
+
+    PUSH,
+    __temp_SystemObject_2
+
+    COPY
+
+    PUSH, __temp_SystemObjectArray_0
+
+    PUSH,
+    __temp_SystemObject_2
+
+    PUSH, __const_Int32_3
+
+    EXTERN, "SystemArray.__SetValue__SystemObject_SystemInt32__SystemVoid"
+
+    PUSH,
+    player
+
+    PUSH, __temp_VRCSDKBaseVRCPlayerApi_3
+
+    COPY
+
+    PUSH, __temp_VRCSDKBaseVRCPlayerApi_3
+
+    PUSH,
+    __temp_SystemBoolean_3
+
+    EXTERN, "VRCSDKBaseVRCPlayerApi.__get_isMaster__SystemBoolean"
+
+    PUSH,
+    __temp_SystemBoolean_3
+
+    JUMP_IF_FALSE, 0x000009C0
+
+    PUSH, __const_String_Master_
+
+    PUSH,
+    __temp_SystemObject_2
+
+    COPY
+
+    JUMP, 0x000009D4
+
+    PUSH, __const_nil
+
+    PUSH,
+    __temp_SystemObject_2
+
+    COPY
+
+    PUSH, __temp_SystemObjectArray_0
+
+    PUSH,
+    __temp_SystemObject_2
+
+    PUSH, __const_Int32_4
+
+    EXTERN, "SystemArray.__SetValue__SystemObject_SystemInt32__SystemVoid"
+
+    PUSH,
+    __const_nil
+
+    PUSH, __temp_SystemObject_2
+
+    COPY
+
+    PUSH, __temp_SystemObjectArray_0
+
+    PUSH,
+    __temp_SystemObject_2
+
+    PUSH, __const_Int32_5
+
+    EXTERN, "SystemArray.__SetValue__SystemObject_SystemInt32__SystemVoid"
+
+    PUSH,
+    __temp_SystemString_5
+
+    PUSH, __temp_SystemObjectArray_0
+
+    PUSH, __temp_SystemString_4
+
+    EXTERN,
+    "SystemString.__Format__SystemString_SystemObjectArray__SystemString"
+
+    PUSH,
+    __temp_SystemString_3
+
+    PUSH, __temp_SystemString_4
+
+    PUSH, text
+
+    EXTERN,
+    "SystemString.__op_Addition__SystemString_SystemString__SystemString"
+
+    PUSH,
+    index
+
+    PUSH, __temp_SystemInt32_10
+
+    COPY
+
+    PUSH, __const_Int32_1
+
+    PUSH,
+    __temp_SystemInt32_11
+
+    COPY
+
+    PUSH, __temp_SystemInt32_10
+
+    PUSH,
+    __temp_SystemInt32_11
+
+    PUSH, index
+
+    EXTERN, "SystemInt32.__op_Addition__SystemInt32_SystemInt32__SystemInt32"
+
+    NOP
+
+    JUMP,
+    0x000006BC
+
+    PUSH, output
+
+    PUSH, __temp_UnityEngineUIText_0
+
+    COPY
+
+    PUSH,
+    text
+
+    PUSH, __temp_SystemString_5
+
+    COPY
+
+    PUSH, __temp_UnityEngineUIText_0
+
+    PUSH,
+    __temp_SystemString_5
+
+    EXTERN, "UnityEngineUIText.__set_text__SystemString__SystemVoid"
+
+    PUSH,
+    __const_nil
+
+    PUSH, __returnValue
+
+    COPY
+
+    JUMP_INDIRECT, ___updateValues_return
+
+    NOP
+
+    .code_end
+
+'
+  assemblyError: 
+  sourceText: "(\r\n  var(player, VRCPlayerApi, ),\r\n  var(playerList, VRCPlayerApiArray,
+    ),\r\n  var(tempPlayerList, VRCPlayerApiArray, ),\r\n  var(count, Int32, 0),\r\n 
+    var(index, Int32, 0),\r\n  var(text, String, ),\r\n  var(output, public, Text,
+    ),\r\n\r\n  when(_onPlayerJoined, (\r\n    DebugLog(PlayerJoined),\r\n    if(==($(playerList),
+    ), (\r\n      DebugLog(Player list is null),\r\n      =(playerList, CreateVRCPlayerApiArray(10)),\r\n     
+    DebugLog(Player list is null),\r\n    ), <=(GetLength($(playerList)), $(count)),
+    (\r\n        DebugLog(Player list is not null),\r\n      =(tempPlayerList, CreateVRCPlayerApiArray(+(GetLength($(playerList)),
+    10))),\r\n      CopyTo($(playerList), $(tempPlayerList), GetLength($(playerList))),\r\n     
+    =(playerList, $(tempPlayerList)),\r\n      =(tempPlayerList, ),\r\n    )),\r\n   
+    SetValue($(playerList), $(onPlayerJoinedPlayer), $(count)),\r\n    =(count, +($(count),
+    1)),\r\n    (_updateValues),\r\n  )),\r\n\r\n  when(_onPlayerLeft, (\r\n    DebugLog(PlayerLeft),\r\n   
+    if(!=($(playerList), ), (\r\n      =(index, IndexOf($(playerList), $(onPlayerLeftPlayer))),\r\n     
+    if(>=($(index), 0), (\r\n        =(count, -($(count), 1)),\r\n        SetValue($(playerList),
+    GetValue($(playerList), $(count)), $(index)),\r\n        SetValue($(playerList),
+    , $(count)),\r\n        (_updateValues),\r\n      )),\r\n    )),\r\n  )),\r\n\r\n 
+    when(_updateValues, (\r\n    DebugLog(\"PlayerUpdateValues\"),\r\n    =(index,
+    0),\r\n    =(text, Format(\"{0} Online Players\\n\", $(count))),\r\n    while(<($(index),
+    $(count)), (\r\n      =(player, !VRCPlayerApi(GetValue($(playerList), $(index)))),\r\n     
+    =(text, +($(text), Format(\r\n        \"- {0}#{1} [{2}]{3}{4}\\n\",\r\n       
+    ToSystemObjectArray(\r\n          GetDisplayName($(player)),\r\n          GetPlayerId($(player)),\r\n         
+    if(IsUserInVR($(player)), \"VR\", \"Desktop\"),\r\n          if(GetIsLocal($(player)),
+    \" [ME]\", \"\"),\r\n          if(GetIsMaster($(player)), \" [Master]\", \"\"),\r\n       
+    )\r\n      ))),\r\n      =(index, +($(index), 1)),\r\n    )),\r\n    SetText($(output),
+    $(text)),\r\n  )),\r\n)"
+  textAsset: {fileID: 0}
+  showKatana: 1
+  showAssembly: 0
+  showDasm: 0

@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34775e931ff2f0f459e7bbb913673081, type: 3}
+  m_Name: Hello World Asset
+  m_EditorClassIdentifier: 
+  serializedUdonProgramAsset: {fileID: 11400000, guid: 5929ff2060ede134a8d2887fd03b859f,
+    type: 2}
+  udonAssembly: '.data_start
+
+    ___start_return: %SystemUInt32, null
+
+    __temp_SystemString_0:
+    %SystemString, null
+
+    __const_String_Hello_World_: %SystemString, null
+
+    .data_end
+
+    .code_start
+
+    .export
+    _start
+
+    _start:
+
+    PUSH, __const_String_Hello_World_
+
+    PUSH, __temp_SystemString_0
+
+    COPY
+
+    PUSH,
+    __temp_SystemString_0
+
+    EXTERN, "UnityEngineDebug.__Log__SystemObject__SystemVoid"
+
+    JUMP_INDIRECT,
+    ___start_return
+
+    NOP
+
+    .code_end
+
+'
+  assemblyError: 
+  sourceText: "(\n  when(_start, (\n    ; Called on initialize\n    DebugLog(Hello
+    World!)\n  )),\n)"
+  textAsset: {fileID: 0}
+  showKatana: 1
+  showAssembly: 0
+  showDasm: 0

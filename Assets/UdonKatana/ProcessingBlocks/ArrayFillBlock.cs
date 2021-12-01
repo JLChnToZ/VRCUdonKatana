@@ -30,8 +30,9 @@ namespace JLChnToZ.VRC.UdonKatana {
             }
             if (i == 0 && state.tagTypeMapping.TryGetValue(current, out var type)) {
                 result = ExplicitTarget.IsValid ? ExplicitTarget : GetTempVariable(type);
-                tempValue = GetTempVariable(type.GetElementType());
-                state.builder.EmitExtern(CreateArray, type, current.Count, result);
+                var elementType = type.GetElementType();
+                tempValue = GetTempVariable(elementType);
+                state.builder.EmitExtern(CreateArray, elementType, current.Count, result);
             }
             stack.Push(Create(current[i], state, tempValue));
             i++;

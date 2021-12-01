@@ -41,7 +41,7 @@ namespace JLChnToZ.VRC.UdonKatana {
                     if (state.entryPoints.TryGetValue(eventName, out var ep)) {
                         state.builder.EmitJumpIndirect(ep.returnPointer);
                         foreach (var landingPoint in ep.landingPoints)
-                            landingPoint.destination = ep.lastInstruction.next;
+                            landingPoint.destination = ep.lastInstruction;
                         ep.landingPoints.Clear();
                     }
                     i++;
