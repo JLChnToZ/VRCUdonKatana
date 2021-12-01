@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using JLChnToZ.VRC.UdonLowLevel;
 using JLChnToZ.Katana.Expressions;
 
 namespace JLChnToZ.VRC.UdonKatana {

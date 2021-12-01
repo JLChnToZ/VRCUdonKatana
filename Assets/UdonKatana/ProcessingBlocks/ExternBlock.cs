@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using VRC.Udon.Graph;
-using JLChnToZ.VRC.UdonLowLevel;
 using JLChnToZ.Katana.Expressions;
 
 namespace JLChnToZ.VRC.UdonKatana {
