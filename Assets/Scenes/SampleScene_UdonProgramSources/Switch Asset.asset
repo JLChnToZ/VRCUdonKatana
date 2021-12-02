@@ -1,0 +1,1105 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34775e931ff2f0f459e7bbb913673081, type: 3}
+  m_Name: Switch Asset
+  m_EditorClassIdentifier: 
+  serializedUdonProgramAsset: {fileID: 11400000, guid: 2ea09962c95323f4388a425543760428,
+    type: 2}
+  udonAssembly: '.data_start
+
+    .export mode
+
+    .export synced
+
+    .export
+    targets
+
+    .sync state, none
+
+    mode: %SystemInt32, null
+
+    synced:
+    %SystemBoolean, null
+
+    targets: %UnityEngineGameObjectArray, null
+
+    gameObject:
+    %UnityEngineGameObject, this
+
+    thisScript: %VRCUdonCommonInterfacesIUdonEventReceiver,
+    this
+
+    initStates: %SystemBooleanArray, null
+
+    state: %SystemInt32, null
+
+    localState:
+    %SystemInt32, null
+
+    i: %SystemInt32, null
+
+    ___start_return: %SystemUInt32,
+    null
+
+    ___interact_return: %SystemUInt32, null
+
+    ___onPreserialization_return:
+    %SystemUInt32, null
+
+    ___onDeserialization_return: %SystemUInt32, null
+
+    ___onOwnershipTransferred_return:
+    %SystemUInt32, null
+
+    ___updateState_return: %SystemUInt32, null
+
+    onOwnershipTransferredPlayer:
+    %VRCSDKBaseVRCPlayerApi, null
+
+    __temp_SystemBoolean_0: %SystemBoolean, null
+
+    __temp_UnityEngineGameObjectArray_0:
+    %UnityEngineGameObjectArray, null
+
+    __temp_SystemObject_0: %SystemObject,
+    null
+
+    __const_nil: %SystemObject, null
+
+    __temp_SystemInt32_0: %SystemInt32,
+    null
+
+    __const_Int32_0: %SystemInt32, null
+
+    __temp_SystemInt32_1: %SystemInt32,
+    null
+
+    __temp_SystemInt32_2: %SystemInt32, null
+
+    __temp_UnityEngineGameObjectArray_1:
+    %UnityEngineGameObjectArray, null
+
+    __temp_SystemBooleanArray_0: %SystemBooleanArray,
+    null
+
+    __temp_SystemBoolean_1: %SystemBoolean, null
+
+    __temp_UnityEngineGameObject_0:
+    %UnityEngineGameObject, null
+
+    __temp_SystemInt32_3: %SystemInt32, null
+
+    __temp_SystemInt32_4:
+    %SystemInt32, null
+
+    __const_Int32_1: %SystemInt32, null
+
+    __returnValue:
+    %SystemObject, null
+
+    __temp_SystemBoolean_2: %SystemBoolean, null
+
+    __temp_SystemInt32_5:
+    %SystemInt32, null
+
+    __temp_SystemInt32_6: %SystemInt32, null
+
+    __temp_SystemInt32_7:
+    %SystemInt32, null
+
+    __temp_SystemInt32_8: %SystemInt32, null
+
+    __temp_SystemInt32_9:
+    %SystemInt32, null
+
+    __temp_UnityEngineGameObjectArray_2: %UnityEngineGameObjectArray,
+    null
+
+    __temp_SystemBoolean_3: %SystemBoolean, null
+
+    __temp_VRCUdonCommonInterfacesIUdonEventReceiver_0:
+    %VRCUdonCommonInterfacesIUdonEventReceiver, null
+
+    __temp_VRCSDKBaseVRCPlayerApi_0:
+    %VRCSDKBaseVRCPlayerApi, null
+
+    __temp_UnityEngineGameObject_1: %UnityEngineGameObject,
+    null
+
+    __const_UInt32_1320: %SystemUInt32, null
+
+    __const_UInt32_4294967288:
+    %SystemUInt32, null
+
+    __temp_SystemBoolean_4: %SystemBoolean, null
+
+    __const_UInt32_1480:
+    %SystemUInt32, null
+
+    __temp_SystemBoolean_5: %SystemBoolean, null
+
+    __temp_SystemInt32_10:
+    %SystemInt32, null
+
+    __temp_SystemInt32_11: %SystemInt32, null
+
+    __temp_SystemObject_1:
+    %SystemObject, null
+
+    __temp_UnityEngineGameObjectArray_3: %UnityEngineGameObjectArray,
+    null
+
+    __temp_SystemBoolean_6: %SystemBoolean, null
+
+    __temp_SystemBoolean_7:
+    %SystemBoolean, null
+
+    __temp_SystemInt32_12: %SystemInt32, null
+
+    __temp_SystemInt32_13:
+    %SystemInt32, null
+
+    __temp_SystemInt32_14: %SystemInt32, null
+
+    __temp_SystemInt32_15:
+    %SystemInt32, null
+
+    __temp_UnityEngineGameObject_2: %UnityEngineGameObject,
+    null
+
+    __temp_SystemObject_2: %SystemObject, null
+
+    __temp_UnityEngineGameObjectArray_4:
+    %UnityEngineGameObjectArray, null
+
+    __temp_SystemBoolean_8: %SystemBoolean,
+    null
+
+    __temp_SystemInt32_16: %SystemInt32, null
+
+    __temp_SystemInt32_17:
+    %SystemInt32, null
+
+    .data_end
+
+    .code_start
+
+    .export _start
+
+    _start:
+
+    PUSH,
+    targets
+
+    PUSH, __temp_UnityEngineGameObjectArray_0
+
+    COPY
+
+    PUSH,
+    __const_nil
+
+    PUSH, __temp_SystemObject_0
+
+    COPY
+
+    PUSH, __temp_UnityEngineGameObjectArray_0
+
+    PUSH,
+    __temp_SystemObject_0
+
+    PUSH, __temp_SystemBoolean_0
+
+    EXTERN, "SystemObject.__op_Equality__SystemObject_SystemObject__SystemBoolean"
+
+    PUSH,
+    __temp_SystemBoolean_0
+
+    JUMP_IF_FALSE, 0x00000084
+
+    PUSH, __const_Int32_0
+
+    PUSH,
+    __temp_SystemInt32_0
+
+    COPY
+
+    PUSH, __temp_SystemInt32_0
+
+    PUSH,
+    targets
+
+    EXTERN, "UnityEngineGameObjectArray.__ctor__SystemInt32__UnityEngineGameObjectArray"
+
+    PUSH,
+    targets
+
+    PUSH, __temp_UnityEngineGameObjectArray_0
+
+    COPY
+
+    PUSH,
+    __temp_UnityEngineGameObjectArray_0
+
+    PUSH, __temp_SystemInt32_0
+
+    EXTERN,
+    "SystemObjectArray.__get_Length__SystemInt32"
+
+    PUSH, __temp_SystemInt32_0
+
+    PUSH,
+    initStates
+
+    EXTERN, "SystemBooleanArray.__ctor__SystemInt32__SystemBooleanArray"
+
+    PUSH,
+    i
+
+    PUSH, __temp_SystemInt32_1
+
+    COPY
+
+    PUSH, targets
+
+    PUSH,
+    __temp_UnityEngineGameObjectArray_1
+
+    COPY
+
+    PUSH, __temp_UnityEngineGameObjectArray_1
+
+    PUSH,
+    __temp_SystemInt32_2
+
+    EXTERN, "SystemObjectArray.__get_Length__SystemInt32"
+
+    PUSH,
+    __temp_SystemInt32_1
+
+    PUSH, __temp_SystemInt32_2
+
+    PUSH, __temp_SystemBoolean_0
+
+    EXTERN,
+    "SystemInt32.__op_LessThan__SystemInt32_SystemInt32__SystemBoolean"
+
+    PUSH,
+    __temp_SystemBoolean_0
+
+    JUMP_IF_FALSE, 0x00000248
+
+    PUSH, initStates
+
+    PUSH,
+    __temp_SystemBooleanArray_0
+
+    COPY
+
+    PUSH, targets
+
+    PUSH, __temp_UnityEngineGameObjectArray_1
+
+    COPY
+
+    PUSH,
+    i
+
+    PUSH, __temp_SystemInt32_1
+
+    COPY
+
+    PUSH, __temp_UnityEngineGameObjectArray_1
+
+    PUSH,
+    __temp_SystemInt32_1
+
+    PUSH, __temp_SystemObject_0
+
+    EXTERN, "SystemObjectArray.__GetValue__SystemInt32__SystemObject"
+
+    PUSH,
+    __temp_SystemObject_0
+
+    PUSH, __temp_UnityEngineGameObject_0
+
+    COPY
+
+    PUSH,
+    __temp_UnityEngineGameObject_0
+
+    PUSH, __temp_SystemBoolean_1
+
+    EXTERN,
+    "UnityEngineGameObject.__get_activeSelf__SystemBoolean"
+
+    PUSH, i
+
+    PUSH,
+    __temp_SystemInt32_2
+
+    COPY
+
+    PUSH, __temp_SystemBooleanArray_0
+
+    PUSH,
+    __temp_SystemBoolean_1
+
+    PUSH, __temp_SystemInt32_2
+
+    EXTERN, "SystemBooleanArray.__SetValue__SystemObject_SystemInt32__SystemVoid"
+
+    PUSH,
+    i
+
+    PUSH, __temp_SystemInt32_3
+
+    COPY
+
+    PUSH, __const_Int32_1
+
+    PUSH,
+    __temp_SystemInt32_4
+
+    COPY
+
+    PUSH, __temp_SystemInt32_3
+
+    PUSH,
+    __temp_SystemInt32_4
+
+    PUSH, i
+
+    EXTERN, "SystemInt32.__op_Addition__SystemInt32_SystemInt32__SystemInt32"
+
+    NOP
+
+    JUMP,
+    0x000000C8
+
+    PUSH, __const_nil
+
+    PUSH, __returnValue
+
+    COPY
+
+    JUMP_INDIRECT,
+    ___start_return
+
+    .export _interact
+
+    _interact:
+
+    PUSH, mode
+
+    PUSH,
+    __temp_SystemInt32_3
+
+    COPY
+
+    PUSH, __const_Int32_0
+
+    PUSH, __temp_SystemInt32_4
+
+    COPY
+
+    PUSH,
+    __temp_SystemInt32_3
+
+    PUSH, __temp_SystemInt32_4
+
+    PUSH, __temp_SystemBoolean_1
+
+    EXTERN,
+    "SystemInt32.__op_Equality__SystemInt32_SystemInt32__SystemBoolean"
+
+    PUSH,
+    __temp_SystemBoolean_1
+
+    JUMP_IF_FALSE, 0x0000034C
+
+    PUSH, localState
+
+    PUSH,
+    __temp_SystemInt32_5
+
+    COPY
+
+    PUSH, __const_Int32_0
+
+    PUSH, __temp_SystemInt32_6
+
+    COPY
+
+    PUSH,
+    __temp_SystemInt32_5
+
+    PUSH, __temp_SystemInt32_6
+
+    PUSH, __temp_SystemBoolean_2
+
+    EXTERN,
+    "SystemInt32.__op_Equality__SystemInt32_SystemInt32__SystemBoolean"
+
+    PUSH,
+    __temp_SystemBoolean_2
+
+    JUMP_IF_FALSE, 0x00000330
+
+    PUSH, __const_Int32_1
+
+    PUSH,
+    localState
+
+    COPY
+
+    JUMP, 0x00000344
+
+    PUSH, __const_Int32_0
+
+    PUSH,
+    localState
+
+    COPY
+
+    JUMP, 0x00000444
+
+    PUSH, mode
+
+    PUSH, __temp_SystemInt32_5
+
+    COPY
+
+    PUSH,
+    __const_Int32_1
+
+    PUSH, __temp_SystemInt32_6
+
+    COPY
+
+    PUSH, __temp_SystemInt32_5
+
+    PUSH,
+    __temp_SystemInt32_6
+
+    PUSH, __temp_SystemBoolean_2
+
+    EXTERN, "SystemInt32.__op_Equality__SystemInt32_SystemInt32__SystemBoolean"
+
+    PUSH,
+    __temp_SystemBoolean_2
+
+    JUMP_IF_FALSE, 0x00000440
+
+    PUSH, localState
+
+    PUSH,
+    __temp_SystemInt32_8
+
+    COPY
+
+    PUSH, __const_Int32_1
+
+    PUSH, __temp_SystemInt32_9
+
+    COPY
+
+    PUSH,
+    __temp_SystemInt32_8
+
+    PUSH, __temp_SystemInt32_9
+
+    PUSH, __temp_SystemInt32_7
+
+    EXTERN,
+    "SystemInt32.__op_Addition__SystemInt32_SystemInt32__SystemInt32"
+
+    PUSH,
+    targets
+
+    PUSH, __temp_UnityEngineGameObjectArray_2
+
+    COPY
+
+    PUSH,
+    __temp_UnityEngineGameObjectArray_2
+
+    PUSH, __temp_SystemInt32_8
+
+    EXTERN,
+    "SystemObjectArray.__get_Length__SystemInt32"
+
+    PUSH, __temp_SystemInt32_7
+
+    PUSH,
+    __temp_SystemInt32_8
+
+    PUSH, localState
+
+    EXTERN, "SystemInt32.__op_Remainder__SystemInt32_SystemInt32__SystemInt32"
+
+    JUMP,
+    0x00000444
+
+    NOP
+
+    PUSH, synced
+
+    PUSH, __temp_SystemBoolean_3
+
+    COPY
+
+    PUSH,
+    __temp_SystemBoolean_3
+
+    JUMP_IF_FALSE, 0x0000050C
+
+    PUSH, gameObject
+
+    PUSH,
+    __temp_UnityEngineGameObject_0
+
+    COPY
+
+    PUSH, __temp_UnityEngineGameObject_0
+
+    PUSH,
+    __temp_SystemBoolean_3
+
+    EXTERN, "VRCSDKBaseNetworking.__IsOwner__UnityEngineGameObject__SystemBoolean"
+
+    PUSH,
+    __temp_SystemBoolean_3
+
+    JUMP_IF_FALSE, 0x000004D0
+
+    PUSH, thisScript
+
+    PUSH,
+    __temp_VRCUdonCommonInterfacesIUdonEventReceiver_0
+
+    COPY
+
+    PUSH, __temp_VRCUdonCommonInterfacesIUdonEventReceiver_0
+
+    EXTERN,
+    "VRCUdonCommonInterfacesIUdonEventReceiver.__RequestSerialization__SystemVoid"
+
+    JUMP,
+    0x0000050C
+
+    PUSH, __temp_VRCSDKBaseVRCPlayerApi_0
+
+    EXTERN, "VRCSDKBaseNetworking.__get_LocalPlayer__VRCSDKBaseVRCPlayerApi"
+
+    PUSH,
+    gameObject
+
+    PUSH, __temp_UnityEngineGameObject_1
+
+    COPY
+
+    PUSH,
+    __temp_VRCSDKBaseVRCPlayerApi_0
+
+    PUSH, __temp_UnityEngineGameObject_1
+
+    EXTERN,
+    "VRCSDKBaseNetworking.__SetOwner__VRCSDKBaseVRCPlayerApi_UnityEngineGameObject__SystemVoid"
+
+    PUSH,
+    __const_UInt32_1320
+
+    PUSH, ___updateState_return
+
+    COPY
+
+    JUMP,
+    0x00000660
+
+    PUSH, __const_UInt32_4294967288
+
+    PUSH, ___updateState_return
+
+    COPY
+
+    PUSH,
+    __const_nil
+
+    PUSH, __returnValue
+
+    COPY
+
+    JUMP_INDIRECT, ___interact_return
+
+    .export
+    _onPreserialization
+
+    _onPreserialization:
+
+    PUSH, synced
+
+    PUSH,
+    __temp_SystemBoolean_4
+
+    COPY
+
+    PUSH, __temp_SystemBoolean_4
+
+    JUMP_IF_FALSE,
+    0x000005A4
+
+    PUSH, localState
+
+    PUSH, state
+
+    COPY
+
+    PUSH, state
+
+    PUSH,
+    __returnValue
+
+    COPY
+
+    JUMP_INDIRECT, ___onPreserialization_return
+
+    .export
+    _onDeserialization
+
+    _onDeserialization:
+
+    PUSH, __const_UInt32_1480
+
+    PUSH,
+    ___updateState_return
+
+    COPY
+
+    JUMP, 0x00000660
+
+    PUSH, __const_UInt32_4294967288
+
+    PUSH,
+    ___updateState_return
+
+    COPY
+
+    PUSH, __returnValue
+
+    PUSH, __returnValue
+
+    COPY
+
+    JUMP_INDIRECT,
+    ___onDeserialization_return
+
+    .export _onOwnershipTransferred
+
+    _onOwnershipTransferred:
+
+    PUSH,
+    onOwnershipTransferredPlayer
+
+    PUSH, __temp_VRCSDKBaseVRCPlayerApi_0
+
+    COPY
+
+    PUSH,
+    __temp_VRCSDKBaseVRCPlayerApi_0
+
+    PUSH, __temp_SystemBoolean_4
+
+    EXTERN,
+    "VRCSDKBaseVRCPlayerApi.__get_isLocal__SystemBoolean"
+
+    PUSH, __temp_SystemBoolean_4
+
+    JUMP_IF_FALSE,
+    0x00000658
+
+    PUSH, thisScript
+
+    PUSH, __temp_VRCUdonCommonInterfacesIUdonEventReceiver_0
+
+    COPY
+
+    PUSH,
+    __temp_VRCUdonCommonInterfacesIUdonEventReceiver_0
+
+    EXTERN, "VRCUdonCommonInterfacesIUdonEventReceiver.__RequestSerialization__SystemVoid"
+
+    JUMP_INDIRECT,
+    ___onOwnershipTransferred_return
+
+    .export _updateState
+
+    _updateState:
+
+    PUSH,
+    __const_Int32_0
+
+    PUSH, i
+
+    COPY
+
+    PUSH, mode
+
+    PUSH, __temp_SystemInt32_9
+
+    COPY
+
+    PUSH,
+    __const_Int32_0
+
+    PUSH, __temp_SystemInt32_7
+
+    COPY
+
+    PUSH, __temp_SystemInt32_9
+
+    PUSH,
+    __temp_SystemInt32_7
+
+    PUSH, __temp_SystemBoolean_5
+
+    EXTERN, "SystemInt32.__op_Equality__SystemInt32_SystemInt32__SystemBoolean"
+
+    PUSH,
+    __temp_SystemBoolean_5
+
+    JUMP_IF_FALSE, 0x0000089C
+
+    PUSH, i
+
+    PUSH,
+    __temp_SystemInt32_10
+
+    COPY
+
+    PUSH, targets
+
+    PUSH, __temp_UnityEngineGameObjectArray_2
+
+    COPY
+
+    PUSH,
+    __temp_UnityEngineGameObjectArray_2
+
+    PUSH, __temp_SystemInt32_11
+
+    EXTERN,
+    "SystemObjectArray.__get_Length__SystemInt32"
+
+    PUSH, __temp_SystemInt32_10
+
+    PUSH,
+    __temp_SystemInt32_11
+
+    PUSH, __temp_SystemBoolean_5
+
+    EXTERN, "SystemInt32.__op_LessThan__SystemInt32_SystemInt32__SystemBoolean"
+
+    PUSH,
+    __temp_SystemBoolean_5
+
+    JUMP_IF_FALSE, 0x00000894
+
+    PUSH, targets
+
+    PUSH,
+    __temp_UnityEngineGameObjectArray_3
+
+    COPY
+
+    PUSH, i
+
+    PUSH, __temp_SystemInt32_10
+
+    COPY
+
+    PUSH,
+    __temp_UnityEngineGameObjectArray_3
+
+    PUSH, __temp_SystemInt32_10
+
+    PUSH,
+    __temp_SystemObject_1
+
+    EXTERN, "SystemObjectArray.__GetValue__SystemInt32__SystemObject"
+
+    PUSH,
+    __temp_SystemObject_1
+
+    PUSH, __temp_UnityEngineGameObject_1
+
+    COPY
+
+    PUSH,
+    initStates
+
+    PUSH, __temp_SystemBooleanArray_0
+
+    COPY
+
+    PUSH, i
+
+    PUSH,
+    __temp_SystemInt32_11
+
+    COPY
+
+    PUSH, __temp_SystemBooleanArray_0
+
+    PUSH,
+    __temp_SystemInt32_11
+
+    PUSH, __temp_SystemObject_1
+
+    EXTERN, "SystemBooleanArray.__GetValue__SystemInt32__SystemObject"
+
+    PUSH,
+    __temp_SystemObject_1
+
+    PUSH, __temp_SystemBoolean_7
+
+    COPY
+
+    PUSH,
+    localState
+
+    PUSH, __temp_SystemInt32_12
+
+    COPY
+
+    PUSH, __temp_SystemBoolean_7
+
+    PUSH,
+    __temp_SystemInt32_12
+
+    PUSH, __temp_SystemBoolean_6
+
+    EXTERN, "SystemObject.__op_Inequality__SystemObject_SystemObject__SystemBoolean"
+
+    PUSH,
+    __temp_UnityEngineGameObject_1
+
+    PUSH, __temp_SystemBoolean_6
+
+    EXTERN,
+    "UnityEngineGameObject.__SetActive__SystemBoolean__SystemVoid"
+
+    PUSH, i
+
+    PUSH,
+    __temp_SystemInt32_12
+
+    COPY
+
+    PUSH, __const_Int32_1
+
+    PUSH, __temp_SystemInt32_13
+
+    COPY
+
+    PUSH,
+    __temp_SystemInt32_12
+
+    PUSH, __temp_SystemInt32_13
+
+    PUSH, i
+
+    EXTERN,
+    "SystemInt32.__op_Addition__SystemInt32_SystemInt32__SystemInt32"
+
+    NOP
+
+    JUMP,
+    0x000006CC
+
+    JUMP, 0x00000A80
+
+    PUSH, mode
+
+    PUSH, __temp_SystemInt32_13
+
+    COPY
+
+    PUSH,
+    __const_Int32_1
+
+    PUSH, __temp_SystemInt32_14
+
+    COPY
+
+    PUSH, __temp_SystemInt32_13
+
+    PUSH,
+    __temp_SystemInt32_14
+
+    PUSH, __temp_SystemBoolean_7
+
+    EXTERN, "SystemInt32.__op_Equality__SystemInt32_SystemInt32__SystemBoolean"
+
+    PUSH,
+    __temp_SystemBoolean_7
+
+    JUMP_IF_FALSE, 0x00000A7C
+
+    PUSH, i
+
+    PUSH,
+    __temp_SystemInt32_14
+
+    COPY
+
+    PUSH, targets
+
+    PUSH, __temp_UnityEngineGameObjectArray_3
+
+    COPY
+
+    PUSH,
+    __temp_UnityEngineGameObjectArray_3
+
+    PUSH, __temp_SystemInt32_15
+
+    EXTERN,
+    "SystemObjectArray.__get_Length__SystemInt32"
+
+    PUSH, __temp_SystemInt32_14
+
+    PUSH,
+    __temp_SystemInt32_15
+
+    PUSH, __temp_SystemBoolean_6
+
+    EXTERN, "SystemInt32.__op_LessThan__SystemInt32_SystemInt32__SystemBoolean"
+
+    PUSH,
+    __temp_SystemBoolean_6
+
+    JUMP_IF_FALSE, 0x00000A74
+
+    PUSH, targets
+
+    PUSH,
+    __temp_UnityEngineGameObjectArray_4
+
+    COPY
+
+    PUSH, i
+
+    PUSH, __temp_SystemInt32_15
+
+    COPY
+
+    PUSH,
+    __temp_UnityEngineGameObjectArray_4
+
+    PUSH, __temp_SystemInt32_15
+
+    PUSH,
+    __temp_SystemObject_2
+
+    EXTERN, "SystemObjectArray.__GetValue__SystemInt32__SystemObject"
+
+    PUSH,
+    __temp_SystemObject_2
+
+    PUSH, __temp_UnityEngineGameObject_2
+
+    COPY
+
+    PUSH,
+    i
+
+    PUSH, __temp_SystemInt32_16
+
+    COPY
+
+    PUSH, localState
+
+    PUSH,
+    __temp_SystemInt32_17
+
+    COPY
+
+    PUSH, __temp_SystemInt32_16
+
+    PUSH,
+    __temp_SystemInt32_17
+
+    PUSH, __temp_SystemBoolean_8
+
+    EXTERN, "SystemInt32.__op_Equality__SystemInt32_SystemInt32__SystemBoolean"
+
+    PUSH,
+    __temp_UnityEngineGameObject_2
+
+    PUSH, __temp_SystemBoolean_8
+
+    EXTERN,
+    "UnityEngineGameObject.__SetActive__SystemBoolean__SystemVoid"
+
+    PUSH, i
+
+    PUSH,
+    __temp_SystemInt32_16
+
+    COPY
+
+    PUSH, __const_Int32_1
+
+    PUSH, __temp_SystemInt32_17
+
+    COPY
+
+    PUSH,
+    __temp_SystemInt32_16
+
+    PUSH, __temp_SystemInt32_17
+
+    PUSH, i
+
+    EXTERN,
+    "SystemInt32.__op_Addition__SystemInt32_SystemInt32__SystemInt32"
+
+    NOP
+
+    JUMP,
+    0x000008F4
+
+    JUMP, 0x00000A80
+
+    NOP
+
+    PUSH, __const_nil
+
+    PUSH,
+    __returnValue
+
+    COPY
+
+    JUMP_INDIRECT, ___updateState_return
+
+    NOP
+
+    .code_end
+
+'
+  assemblyError: 
+  sourceText: 
+  textAsset: {fileID: 4900000, guid: c04c54d7cb5fb6745a940ffe61ca477a, type: 3}
+  autoReload: 1
+  showKatana: 0
+  showAssembly: 0
+  showDasm: 0

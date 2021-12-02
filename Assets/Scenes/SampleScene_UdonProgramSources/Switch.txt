@@ -1,0 +1,53 @@
+(
+  var(mode, public, Int32, 0),
+  var(synced, public, Boolean, false),
+  var(targets, public, GameObjectArray, ),
+  var(gameObject, GameObject, (this)),
+  var(thisScript, UdonBehaviour, (this)),
+  var(initStates, BooleanArray, ),
+  var(state, sync, Int32, 0),
+  var(localState, Int32, 0),
+  var(i, Int32, 0),
+
+  when(_start, (
+    if(==($(targets), ), =(targets, CreateGameObjectArray(0))),
+    =(initStates, CreateBooleanArray(GetLength($(targets)))),
+    while(<($(i), GetLength($(targets))), (
+      SetValue($(initStates), GetActiveSelf(!GameObject(GetValue($(targets), $(i)))), $(i)),
+      =(i, +($(i), 1)),
+    )),
+  )),
+
+  when(_interact, (
+    if(
+      ==($(mode), 0),
+        =(localState, if(==($(localState), 0), 1, 0)),
+      ==($(mode), 1),
+        =(localState, %(+($(localState), 1), GetLength($(targets)))),
+    ),
+    if($(synced), if(NetworkingIsOwner($(gameObject)), RequestSerialization($(thisScript)), NetworkingSetOwner((GetNetworkingLocalPlayer), $(gameObject)))),
+    (_updateState),
+  )),
+
+  when(_onPreserialization, if($(synced), =(state, $(localState)))),
+
+  when(_onDeserialization, (_updateState)),
+
+  when(_onOwnershipTransferred, if(GetIsLocal($(onOwnershipTransferredPlayer)), RequestSerialization($(thisScript)))),
+
+  when(_updateState, (
+    =(i, 0),
+    if(
+      ==($(mode), 0),
+          while(<($(i), GetLength($(targets))), (
+            SetActive(!GameObject(GetValue($(targets), $(i))), !=(!Boolean(GetValue($(initStates), $(i))), $(localState))),
+            =(i, +($(i), 1)),
+          )),
+      ==($(mode), 1),
+          while(<($(i), GetLength($(targets))), (
+            SetActive(!GameObject(GetValue($(targets), $(i))), ==($(i), $(localState))),
+            =(i, +($(i), 1)),
+          )),
+    ),
+  )),
+)

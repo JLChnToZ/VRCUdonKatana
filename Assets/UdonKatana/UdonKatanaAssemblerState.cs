@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using VRC.Udon.Graph;
 using VRC.Udon.Editor;
+using VRC.Udon.Common.Interfaces;
 using JLChnToZ.VRC.UdonLowLevel;
 using JLChnToZ.Katana.Expressions;
 
@@ -130,6 +131,15 @@ namespace JLChnToZ.VRC.UdonKatana {
             }
             foreach (var nodes in methodDefs.Values)
                 nodes.Sort(UdonNodeDefinitionCompararer.instance);
+            // IUdonEventReceiver is mapped to UnityEngine.Object, therefore we need to override it here.
+            typeDefs["VRCUdonCommonInterfacesIUdonEventReceiver"] = typeof(IUdonEventReceiver);
+            typeDefs["IUdonEventReceiver"] = typeof(IUdonEventReceiver);
+            typeDefs["VRCUdonUdonBehaviour"] = typeof(IUdonEventReceiver);
+            typeDefs["UdonBehaviour"] = typeof(IUdonEventReceiver);
+            typeDefs["VRCUdonCommonInterfacesIUdonEventReceiverArray"] = typeof(IUdonEventReceiver[]);
+            typeDefs["IUdonEventReceiverArray"] = typeof(IUdonEventReceiver[]);
+            typeDefs["VRCUdonUdonBehaviourArray"] = typeof(IUdonEventReceiver[]);
+            typeDefs["UdonBehaviourArray"] = typeof(IUdonEventReceiver[]);
         }
 
         static void AddMethodDefinition(string alias, int argc, UdonNodeDefinition def) {

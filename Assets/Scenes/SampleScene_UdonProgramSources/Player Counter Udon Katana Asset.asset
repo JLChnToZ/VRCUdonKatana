@@ -1180,5 +1180,5 @@ MonoBehaviour:
   textAsset: {fileID: 4900000, guid: 63e89e9a39787664a89a9d79b79867be, type: 3}
   autoReload: 1
   showKatana: 0
-  showAssembly: 1
+  showAssembly: 0
   showDasm: 0

@@ -583,7 +583,7 @@ namespace JLChnToZ.Katana.Expressions {
         }
     }
 
-    public struct SourcePosition: IEquatable<SourcePosition>, IComparable<SourcePosition> {
+    public struct SourcePosition: IEquatable<SourcePosition>, IComparable<SourcePosition>, IFormattable {
         public readonly int line, column;
 
         public SourcePosition(int line, int column) {
@@ -622,8 +622,25 @@ namespace JLChnToZ.Katana.Expressions {
 
         public override int GetHashCode() => unchecked(line << 16 ^ column);
 
-        public override string ToString() => $"({line}:{column})";
-  }
+        public override string ToString() => ToString(null, null);
+
+        public string ToString(string format) => ToString(format, null);
+
+        public string ToString(string format, IFormatProvider formatProvider) {
+            if (string.IsNullOrEmpty(format)) format = "G";
+            if (format == "G") return string.Format(formatProvider, "{0}:{1}", line, column);
+            var sb = new StringBuilder(format.Length);
+            bool isEscape = false;
+            foreach (var c in format)
+                switch (c) {
+                    case 'L': if (isEscape) goto default; sb.Append(line.ToString(formatProvider)); break;
+                    case 'C': if (isEscape) goto default; sb.Append(column.ToString(formatProvider)); break;
+                    case '\\': isEscape = true; break;
+                    default: isEscape = false; sb.Append(c); break;
+                }
+            return sb.ToString();
+        }
+    }
 
     public class SyntaxException: Exception {
         private int line, column = -1;

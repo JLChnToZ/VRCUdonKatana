@@ -2,6 +2,7 @@
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
+using UnityEngine;
 using VRC.Udon;
 using VRC.Udon.Common;
 using VRC.Udon.Common.Interfaces;
@@ -219,7 +220,7 @@ namespace JLChnToZ.VRC.UdonLowLevel {
         private void DoTypeCheck(VariableName variableName, Type type, bool strict = false) {
             if (!variableName.IsValid) throw new ArgumentNullException(nameof(variableName));
             if (variableDefs.TryGetValue(variableName, out var def)) {
-                if (typeCheck && type != null && (strict ? def.type != type : !TypeHelper.IsTypeAssignable(def.type, type)))
+                if (typeCheck && type != null && (strict ? def.type != type : !TypeHelper.IsTypeCompatable(def.type, type)))
                     throw new ArgumentException($"Type mismatch: expected variable `{variableName}` to be `{type}` but got `{def.type}`.");
             } else DefineVariable(variableName, type);
         }
@@ -370,6 +371,9 @@ namespace JLChnToZ.VRC.UdonLowLevel {
                     continue;
                 }
             }
+            // IUdonEventReceiver is mapped to UnityEngine.Object, therefore we need to override it here.
+            typeNames[typeof(IUdonEventReceiver)] = "VRCUdonCommonInterfacesIUdonEventReceiver";
+            typeNames[typeof(IUdonEventReceiver[])] = "VRCUdonCommonInterfacesIUdonEventReceiverArray";
         }
 
         public static string GetUdonTypeName(this Type type) => typeNames.TryGetValue(type, out var typeName) ? typeName : "SystemObject";
