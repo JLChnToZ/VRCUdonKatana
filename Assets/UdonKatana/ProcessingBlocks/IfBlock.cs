@@ -35,7 +35,7 @@ namespace JLChnToZ.VRC.UdonKatana {
                     while (!satisfied && type != null) {
                         satisfied = true;
                         for (int i = 1; i < testTypes.Count; i++)
-                            if (!type.IsAssignableFrom(testTypes[i])) {
+                            if (!TypeHelper.IsTypeAssignable(type, testTypes[i])) {
                                 satisfied = false;
                                 break;
                             }

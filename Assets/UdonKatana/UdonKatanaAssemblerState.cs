@@ -140,7 +140,7 @@ namespace JLChnToZ.VRC.UdonKatana {
             int i = list.FindIndex(entry => UdonNodeDefinitionCompararer.instance.Equals(entry, def));
             if (i < 0)
                 list.Add(def);
-            else if (!list[i].type.IsAssignableFrom(def.type))
+            else if (!TypeHelper.IsTypeAssignable(list[i].type, def.type))
                 list[i] = def;
         }
 

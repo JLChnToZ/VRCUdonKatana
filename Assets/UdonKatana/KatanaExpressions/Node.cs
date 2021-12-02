@@ -10,6 +10,8 @@ namespace JLChnToZ.Katana.Expressions {
 
         public object Tag { get; }
 
+        internal int sourceOffset;
+
         public int Count => nodes == null ? 0 : nodes.Count;
 
         bool ICollection<Node>.IsReadOnly => false;
@@ -96,6 +98,8 @@ namespace JLChnToZ.Katana.Expressions {
             ExpressionHelper.Serialize(this, sb);
             return sb.ToString();
         }
+
+        public SourcePosition GetPosition(string source) => new SourcePosition(source, sourceOffset);
 
         public static Node Deserialize(string source) {
             if(string.IsNullOrWhiteSpace(source))

@@ -250,7 +250,7 @@ namespace JLChnToZ.Katana.Expressions {
                                 sb.Add(c);
                                 break;
                             case '(':
-                                current = CreateNode(sb, hasQuote, false);
+                                current = CreateNode(sb, hasQuote, false, i);
                                 if (nodeStack.Count > 0)
                                     nodeStack.Peek().Add(current);
                                 nodeStack.Push(current);
@@ -262,14 +262,14 @@ namespace JLChnToZ.Katana.Expressions {
                             case ',':
                                 if (nodeStack.Count < 1)
                                     throw new SyntaxException($"Unexpected '{c}'", source, i);
-                                nodeStack.Peek().Add(CreateNode(sb, hasQuote, false));
+                                nodeStack.Peek().Add(CreateNode(sb, hasQuote, false, i));
                                 hasQuote = false;
                                 hasAddNode = true;
                                 break;
                             case ')':
                                 if (nodeStack.Count < 1)
                                     throw new SyntaxException($"Unexpected '{c}'", source, i);
-                                current = CreateNode(sb, hasQuote, !hasAddNode);
+                                current = CreateNode(sb, hasQuote, !hasAddNode, i);
                                 var parent = nodeStack.Pop();
                                 if (current != null)
                                     parent.Add(current);
@@ -454,7 +454,7 @@ namespace JLChnToZ.Katana.Expressions {
                     throw new SyntaxException($"Missing '{stringPairChar}'", source, source.Length);
             }
             if (result == null)
-                result = CreateNode(sb, hasQuote, true);
+                result = CreateNode(sb, hasQuote, true, source.Length);
             if (nodeStack.Count > 1)
                 throw new SyntaxException("Missing ')'", source, source.Length);
             return result;
@@ -463,15 +463,15 @@ namespace JLChnToZ.Katana.Expressions {
         private static bool CanIgnoreChar(char c) =>
             char.IsWhiteSpace(c) || char.IsSeparator(c) || char.IsControl(c);
 
-        private static Node CreateNode(List<char> sb, bool hasQuote, bool ignoreIfEmpty) {
+        private static Node CreateNode(List<char> sb, bool hasQuote, bool ignoreIfEmpty, int refPos) {
             try {
                 if (sb.Count <= 0)
-                    return ignoreIfEmpty ? null : new Node(null);
+                    return ignoreIfEmpty ? null : new Node(null) { sourceOffset = refPos };
                 var str = new string(sb.ToArray());
                 if (hasQuote)
-                    return new Node(str);
+                    return new Node(str) { sourceOffset = refPos };
                 if (string.IsNullOrWhiteSpace(str))
-                    return ignoreIfEmpty ? null : new Node(null);
+                    return ignoreIfEmpty ? null : new Node(null) { sourceOffset = refPos };
                 str = str.Trim();
                 object result = str;
                 try {
@@ -542,7 +542,7 @@ namespace JLChnToZ.Katana.Expressions {
                             break;
                     }
                 } catch { }
-                return new Node(result);
+                return new Node(result) { sourceOffset = refPos };
             } finally {
                 sb.Clear();
             }
@@ -583,9 +583,50 @@ namespace JLChnToZ.Katana.Expressions {
         }
     }
 
+    public struct SourcePosition: IEquatable<SourcePosition>, IComparable<SourcePosition> {
+        public readonly int line, column;
+
+        public SourcePosition(int line, int column) {
+            this.line = line;
+            this.column = column;
+        }
+
+        public SourcePosition(string source, int offset) {
+            column = offset;
+            line = 1;
+            if (!string.IsNullOrEmpty(source))
+                for (int i = 0, l = Math.Min(offset, source.Length); i < l; i++)
+                    switch (source[i]) {
+                        case '\n':
+                            if (i > 0 && source[i - 1] == '\r')
+                                break;
+                            goto case '\r';
+                        case '\r':
+                            column = offset - i;
+                            line++;
+                            break;
+                    }
+        }
+
+        public int CompareTo(SourcePosition other) {
+            if (line > other.line) return 1;
+            if (line < other.line) return -1;
+            if (column > other.column) return 1;
+            if (column < other.column) return -1;
+            return 0;
+        }
+
+        public bool Equals(SourcePosition other) => line == other.line && column == other.column;
+
+        public override bool Equals(object obj) => obj is SourcePosition other && Equals(other);
+
+        public override int GetHashCode() => unchecked(line << 16 ^ column);
+
+        public override string ToString() => $"({line}:{column})";
+  }
+
     public class SyntaxException: Exception {
-        private int line, column;
-        private int lineOffset = -1;
+        private int line, column = -1;
 
         public string SourceCode { get; private set; }
 
@@ -593,21 +634,19 @@ namespace JLChnToZ.Katana.Expressions {
 
         public int Line {
             get {
-                if (lineOffset < 0)
-                    CountLine();
+                if (line <= 0) CountLine();
                 return line;
             }
         }
 
         public int Column {
             get {
-                if (lineOffset < 0)
-                    CountLine();
+                if (column < 0) CountLine();
                 return column;
             }
         }
 
-        public override string Message => $"{base.Message} at ({Line + 1}, {Column + 1}).";
+        public override string Message => $"{base.Message} at ({Line}, {Column}).";
 
         public SyntaxException(string message, string source, int offset) :
             base(message) {
@@ -616,24 +655,9 @@ namespace JLChnToZ.Katana.Expressions {
         }
 
         private void CountLine() {
-            var source = SourceCode;
-            int offset = Offset;
-            column = offset;
-            lineOffset = 0;
-            line = 0;
-            if (source == null) return;
-            for (int i = 0, l = Math.Min(offset, source.Length); i < l; i++)
-                switch (source[i]) {
-                    case '\n':
-                        if (i > 0 && source[i - 1] == '\r')
-                            break;
-                        goto case '\r';
-                    case '\r':
-                        column = offset - i;
-                        lineOffset = i;
-                        line++;
-                        break;
-                }
+            var lineNumber = new SourcePosition(SourceCode, Offset);
+            line = lineNumber.line;
+            column = lineNumber.column;
         }
     }
 }

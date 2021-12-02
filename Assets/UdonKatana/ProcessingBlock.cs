@@ -23,14 +23,20 @@ namespace JLChnToZ.VRC.UdonKatana {
                 RegisterTypes(assembly);
         }
 
-        public static void AssembleBody(Node root, UdonAssemblyBuilder builder) {
+        public static void AssembleBody(Node root, UdonAssemblyBuilder builder, string source = null) {
             var stack = new Stack<ProcessingBlock>();
             var state = new AssemblerState(builder);
-            ResolveTypes(root, state);
+            ResolveTypes(root, state, source);
             stack.Push(Create(root, state));
-            while (stack.Count > 0)
-                if (stack.Peek().Process(stack))
-                    stack.Pop();
+            while (stack.Count > 0) {
+                ProcessingBlock block = stack.Peek();
+                try {
+                    if (block.Process(stack))
+                        stack.Pop();
+                } catch (Exception ex) {
+                    throw new CompileException(ex.Message, ex, block.current, source);
+                }
+            }
         }
 
         protected static ProcessingBlock Create(Node node, AssemblerState state, VariableName explicitTarget = default) {
@@ -39,7 +45,7 @@ namespace JLChnToZ.VRC.UdonKatana {
             return processingBlock;
         }
 
-        private static void ResolveTypes(Node node, AssemblerState state) {
+        private static void ResolveTypes(Node node, AssemblerState state, string source) {
             var stack = new Stack<Node>();
             var queue = new Queue<Node>();
             queue.Enqueue(node);
@@ -76,7 +82,7 @@ namespace JLChnToZ.VRC.UdonKatana {
                         matches = true;
                         break;
                     }
-                if (!matches) throw new Exception($"No matching handler for node `{current.Tag}` (parent: `{parentMap[current]}`).");
+                if (!matches) throw new CompileException($"No matching handler for node `{current.Tag}`", current, source);
             }
         }
 
@@ -132,5 +138,23 @@ namespace JLChnToZ.VRC.UdonKatana {
 
         public static ProcessingBlockPriorityAttribute GetAttribute(Type type) =>
             GetCustomAttribute(type, typeof(ProcessingBlockPriorityAttribute)) as ProcessingBlockPriorityAttribute;
+    }
+
+    public class CompileException: Exception {
+        public SourcePosition Position { get; private set; }
+
+        public override string Message => $"Compile Error: {base.Message} at line {Position.line}, column {Position.column}";
+
+        public CompileException(Node node, string source) {
+            Position = node?.GetPosition(source) ?? default;
+        }
+
+        public CompileException(string message, Node node, string source) : base(message) {
+            Position = node?.GetPosition(source) ?? default;
+        }
+
+        public CompileException(string message, Exception innerException, Node node, string source) : base(message, innerException) {
+            Position = node?.GetPosition(source) ?? default;
+        }
     }
 }

@@ -94,14 +94,15 @@ namespace JLChnToZ.VRC.UdonKatana {
                 var builder = new UdonAssemblyBuilder();
                 if (autoReload && textAsset != null) sourceText = textAsset.text;
                 var node = Node.Deserialize(sourceText);
-                if (autoReload) sourceText = "";
-                ProcessingBlock.AssembleBody(node, builder);
+                ProcessingBlock.AssembleBody(node, builder, sourceText);
                 udonAssembly = builder.Compile();
                 program = builder.Assemble();
                 assemblyError = null;
             } catch (Exception ex) {
                 Debug.LogError(ex);
                 assemblyError = ex.Message;
+            } finally {
+                if (autoReload) sourceText = "";
             }
         }
 

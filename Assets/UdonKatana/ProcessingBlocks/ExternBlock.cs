@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using VRC.Udon.Graph;
 using JLChnToZ.Katana.Expressions;
+using JLChnToZ.VRC.UdonLowLevel;
 
 namespace JLChnToZ.VRC.UdonKatana {
     [ProcessingBlockPriority(Priority = 998)]
@@ -30,10 +31,10 @@ namespace JLChnToZ.VRC.UdonKatana {
                         }
                         switch (parameter.parameterType) {
                             case UdonNodeParameter.ParameterType.IN:
-                                matches = parameter.type.IsAssignableFrom(currentType);
+                                matches = TypeHelper.IsTypeAssignable(parameter.type, currentType);
                                 break;
                             case UdonNodeParameter.ParameterType.OUT:
-                                matches = currentType.IsAssignableFrom(parameter.type);
+                                matches = TypeHelper.IsTypeAssignable(currentType, parameter.type);
                                 break;
                             default:
                                 matches = parameter.type == currentType;

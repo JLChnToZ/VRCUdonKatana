@@ -1,4 +1,5 @@
 (
+  var(gameObject, GameObject, (this)),
   var(player, VRCPlayerApi, ),
   var(playerList, VRCPlayerApiArray, ),
   var(tempPlayerList, VRCPlayerApiArray, ),
@@ -6,6 +7,8 @@
   var(index, Int32, 0),
   var(text, String, ),
   var(output, public, Text, ),
+
+  when(_start, if(==($(output), ), =(output, GetComponentInChildren($(gameObject), typeof(Text))))),
 
   when(_onPlayerJoined, (
     DebugLog(On player joined),
@@ -40,7 +43,7 @@
     =(index, 0),
     =(text, Format("{0} Online Players\n", $(count))),
     while(<($(index), $(count)), (
-      =(player, !VRCPlayerApi(GetValue($(playerList), $(index)))),
+      =(player, GetValue($(playerList), $(index))),
       =(text, +($(text), Format(
         "- {0}#{1} [{2}]{3}{4}\n",
         ToSystemObjectArray(

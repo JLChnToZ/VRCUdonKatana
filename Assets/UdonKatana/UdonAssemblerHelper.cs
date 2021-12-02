@@ -2,6 +2,7 @@
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
+using VRC.Udon;
 using VRC.Udon.Common;
 using VRC.Udon.Common.Interfaces;
 using VRC.Udon.Graph;
@@ -56,7 +57,7 @@ namespace JLChnToZ.VRC.UdonLowLevel {
                 definition.type = fixedType;
                 definition.attributes &= VariableAttributes.Public;
             }
-            if (definition.type != null && (definition.value == null ? definition.type.IsValueType : !definition.type.IsInstanceOfType(definition.value)))
+            if (definition.type != null && definition.type != typeof(void) && (definition.value == null ? definition.type.IsValueType : !definition.type.IsInstanceOfType(definition.value)))
                 throw new ArgumentException("Type mismatch");
             if (definition.attributes.HasFlag(VariableAttributes.Constant)) {
                 var value2 = definition.value ?? nullObj;
@@ -95,7 +96,7 @@ namespace JLChnToZ.VRC.UdonLowLevel {
                 Type type;
                 string baseName;
                 if (value == nullObj) {
-                    type = null;
+                    type = typeof(void);
                     baseName = "__const_nil";
                     value = null;
                 } else {
@@ -218,7 +219,7 @@ namespace JLChnToZ.VRC.UdonLowLevel {
         private void DoTypeCheck(VariableName variableName, Type type, bool strict = false) {
             if (!variableName.IsValid) throw new ArgumentNullException(nameof(variableName));
             if (variableDefs.TryGetValue(variableName, out var def)) {
-                if (typeCheck && type != null && (strict ? def.type != type : !def.type.IsAssignableFrom(type) && !type.IsAssignableFrom(def.type)))
+                if (typeCheck && type != null && (strict ? def.type != type : !TypeHelper.IsTypeAssignable(def.type, type)))
                     throw new ArgumentException($"Type mismatch: expected variable `{variableName}` to be `{type}` but got `{def.type}`.");
             } else DefineVariable(variableName, type);
         }
@@ -262,7 +263,7 @@ namespace JLChnToZ.VRC.UdonLowLevel {
                         var paramDef = nodeDef.parameters[i];
                         switch (paramDef.parameterType) {
                             case UdonNodeParameter.ParameterType.IN:
-                                if (type == null ? paramDef.type.IsValueType : !paramDef.type.IsAssignableFrom(type))
+                                if (!TypeHelper.IsTypeAssignable(paramDef.type, type))
                                     throw new ArgumentException($"Type mismatch: Expected parameter {i} of `{methodName}` to be `{paramDef.type}` but got `{type}`.");
                                 break;
                             case UdonNodeParameter.ParameterType.OUT:
@@ -271,7 +272,7 @@ namespace JLChnToZ.VRC.UdonLowLevel {
                                 if (type == null) {
                                     varDef.type = paramDef.type;
                                     variableDefs[name] = varDef;
-                                } else if (!type.IsAssignableFrom(paramDef.type) && !paramDef.type.IsAssignableFrom(type))
+                                } else if (!TypeHelper.IsTypeCompatable(paramDef.type, type))
                                     throw new ArgumentException($"Type mismatch: Expected parameter {i} of `{methodName}` to be `{paramDef.type}` but got `{type}`.");
                                 break;
                             case UdonNodeParameter.ParameterType.IN_OUT:
@@ -337,7 +338,7 @@ namespace JLChnToZ.VRC.UdonLowLevel {
             var symbolTable = program.SymbolTable;
             var heap = program.Heap;
             foreach (var kv in variableDefs)
-                if (!kv.Value.attributes.HasFlag(VariableAttributes.DefaultThis))
+                if (!kv.Value.attributes.HasFlag(VariableAttributes.DefaultThis) && kv.Value.type != typeof(void))
                     heap.SetHeapVariable(symbolTable.GetAddressFromSymbol(kv.Key.key), kv.Value.value, kv.Value.type);
             return program;
         }
@@ -350,7 +351,9 @@ namespace JLChnToZ.VRC.UdonLowLevel {
 
     public static class TypeHelper {
         static readonly Dictionary<Type, string> typeNames = new Dictionary<Type, string>();
-        static readonly Dictionary<VariableName, Type> predefinedVariableTypes = new Dictionary<VariableName, Type>();
+        static readonly Dictionary<VariableName, Type> predefinedVariableTypes = new Dictionary<VariableName, Type> {
+            [UdonBehaviour.ReturnVariableName] = typeof(object),
+        };
 
         static TypeHelper() {
             foreach (var def in UdonEditorManager.Instance.GetNodeDefinitions()) {
@@ -374,6 +377,17 @@ namespace JLChnToZ.VRC.UdonLowLevel {
         public static Type GetPredefinedType(this VariableName varName) {
             predefinedVariableTypes.TryGetValue(varName, out var type);
             return type;
+        }
+
+        public static bool IsTypeAssignable(Type from, Type to) {
+            if (to == null || to == typeof(void)) return from == null || !from.IsValueType;
+            return from.IsAssignableFrom(to);
+        }
+
+        public static bool IsTypeCompatable(Type from, Type to) {
+            if (from == null || from == typeof(void)) return to == null || !to.IsValueType;
+            if (to == null || to == typeof(void)) return from == null || !from.IsValueType;
+            return from.IsAssignableFrom(to) || to.IsAssignableFrom(from);
         }
     }
 
@@ -415,7 +429,7 @@ namespace JLChnToZ.VRC.UdonLowLevel {
         public VariableDefinition(Type type = null, VariableAttributes attributes = VariableAttributes.None, object value = null) {
             this.type = type ?? value?.GetType() ?? typeof(object);
             this.attributes = attributes;
-            this.value = value ?? (type != null && type.IsValueType ? Activator.CreateInstance(type) : null);
+            this.value = value ?? (type != null && type != typeof(void) && type.IsValueType ? Activator.CreateInstance(type) : null);
         }
     }
 
@@ -533,14 +547,14 @@ namespace JLChnToZ.VRC.UdonLowLevel {
                     score += lhsType.IsValueType ? rhsType.IsValueType ? 0 : -1 : 1;
                     continue;
                 }
-                if (lhsType.IsAssignableFrom(rhsType)) {
+                if (TypeHelper.IsTypeAssignable(lhsType, rhsType)) {
                     while (rhsType != lhsType && rhsType != null) {
                         score++;
                         rhsType = rhsType.BaseType;
                     }
                     continue;
                 }
-                if (rhsType.IsAssignableFrom(lhsType)) {
+                if (TypeHelper.IsTypeAssignable(rhsType, lhsType)) {
                     while (rhsType != lhsType && lhsType != null) {
                         score--;
                         lhsType = lhsType.BaseType;

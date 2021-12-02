@@ -18,64 +18,84 @@ MonoBehaviour:
 
     .export output
 
-    player: %VRCSDKBaseVRCPlayerApi,
+    gameObject: %UnityEngineGameObject,
+    this
+
+    player: %VRCSDKBaseVRCPlayerApi, null
+
+    playerList: %VRCSDKBaseVRCPlayerApiArray,
     null
 
-    playerList: %VRCSDKBaseVRCPlayerApiArray, null
+    tempPlayerList: %VRCSDKBaseVRCPlayerApiArray, null
 
-    tempPlayerList:
-    %VRCSDKBaseVRCPlayerApiArray, null
+    count: %SystemInt32,
+    null
 
-    count: %SystemInt32, null
-
-    index:
-    %SystemInt32, null
+    index: %SystemInt32, null
 
     text: %SystemString, null
 
-    output: %UnityEngineUIText,
-    null
+    output:
+    %UnityEngineUIText, null
 
-    ___onPlayerJoined_return: %SystemUInt32, null
+    ___start_return: %SystemUInt32, null
 
-    ___onPlayerLeft_return:
+    ___onPlayerJoined_return:
     %SystemUInt32, null
 
-    ___updateValues_return: %SystemUInt32, null
+    ___onPlayerLeft_return: %SystemUInt32, null
 
-    onPlayerLeftPlayer:
+    ___updateValues_return:
+    %SystemUInt32, null
+
+    onPlayerLeftPlayer: %VRCSDKBaseVRCPlayerApi, null
+
+    onPlayerJoinedPlayer:
     %VRCSDKBaseVRCPlayerApi, null
-
-    onPlayerJoinedPlayer: %VRCSDKBaseVRCPlayerApi,
-    null
-
-    __temp_SystemString_0: %SystemString, null
-
-    __const_String_On_player_joined:
-    %SystemString, null
 
     __temp_SystemBoolean_0: %SystemBoolean, null
 
-    __temp_VRCSDKBaseVRCPlayerApiArray_0:
-    %VRCSDKBaseVRCPlayerApiArray, null
+    __temp_UnityEngineUIText_0:
+    %UnityEngineUIText, null
 
-    __temp_SystemObject_0: %SystemObject,
+    __temp_SystemObject_0: %SystemObject, null
+
+    __const_nil:
+    %SystemObject, null
+
+    __temp_UnityEngineGameObject_0: %UnityEngineGameObject,
     null
 
-    __const_nil: %SystemObject, null
+    __temp_SystemType_0: %SystemType, null
+
+    __const_RuntimeType_UnityEngine_UI_Text:
+    %SystemObject, null
+
+    __returnValue: %SystemObject, null
+
+    __temp_SystemString_0:
+    %SystemString, null
+
+    __const_String_On_player_joined: %SystemString, null
+
+    __temp_VRCSDKBaseVRCPlayerApiArray_0:
+    %VRCSDKBaseVRCPlayerApiArray, null
 
     __temp_SystemInt32_0: %SystemInt32,
     null
 
     __const_Int32_10: %SystemInt32, null
 
-    __temp_SystemInt32_1: %SystemInt32,
+    __temp_SystemBoolean_1:
+    %SystemBoolean, null
+
+    __temp_SystemInt32_1: %SystemInt32, null
+
+    __temp_SystemInt32_2:
+    %SystemInt32, null
+
+    __temp_VRCSDKBaseVRCPlayerApiArray_1: %VRCSDKBaseVRCPlayerApiArray,
     null
-
-    __temp_SystemInt32_2: %SystemInt32, null
-
-    __temp_VRCSDKBaseVRCPlayerApiArray_1:
-    %VRCSDKBaseVRCPlayerApiArray, null
 
     __temp_SystemInt32_3: %SystemInt32, null
 
@@ -95,53 +115,49 @@ MonoBehaviour:
 
     __const_Int32_1: %SystemInt32, null
 
-    __const_UInt32_764:
+    __const_UInt32_952:
     %SystemUInt32, null
 
     __const_UInt32_4294967288: %SystemUInt32, null
 
-    __returnValue:
-    %SystemObject, null
-
-    __temp_SystemBoolean_1: %SystemBoolean, null
-
-    __temp_VRCSDKBaseVRCPlayerApiArray_4:
-    %VRCSDKBaseVRCPlayerApiArray, null
-
-    __const_Int32_0: %SystemInt32, null
-
-    __temp_SystemInt32_6:
-    %SystemInt32, null
-
-    __temp_SystemInt32_7: %SystemInt32, null
-
     __temp_SystemObject_1:
     %SystemObject, null
+
+    __temp_VRCSDKBaseVRCPlayerApiArray_4: %VRCSDKBaseVRCPlayerApiArray,
+    null
+
+    __temp_SystemBoolean_2: %SystemBoolean, null
+
+    __const_Int32_0:
+    %SystemInt32, null
+
+    __temp_SystemInt32_6: %SystemInt32, null
+
+    __temp_SystemInt32_7:
+    %SystemInt32, null
 
     __temp_VRCSDKBaseVRCPlayerApiArray_5: %VRCSDKBaseVRCPlayerApiArray,
     null
 
-    __temp_SystemInt32_8: %SystemInt32, null
+    __temp_SystemObject_2: %SystemObject, null
 
-    __const_UInt32_1432:
-    %SystemUInt32, null
+    __temp_SystemInt32_8:
+    %SystemInt32, null
 
-    __temp_SystemString_1: %SystemString, null
+    __const_UInt32_1620: %SystemUInt32, null
 
-    __const_String_Player_update_values:
+    __temp_SystemString_1:
     %SystemString, null
+
+    __const_String_Player_update_values: %SystemString,
+    null
 
     __const_String_0_Online_Players_: %SystemString, null
 
-    __temp_SystemBoolean_2:
-    %SystemBoolean, null
-
-    __temp_SystemInt32_9: %SystemInt32, null
-
-    __temp_SystemInt32_10:
+    __temp_SystemInt32_9:
     %SystemInt32, null
 
-    __temp_SystemObject_2: %SystemObject, null
+    __temp_SystemInt32_10: %SystemInt32, null
 
     __temp_VRCSDKBaseVRCPlayerApiArray_6:
     %VRCSDKBaseVRCPlayerApiArray, null
@@ -167,8 +183,10 @@ MonoBehaviour:
     __temp_VRCSDKBaseVRCPlayerApi_1:
     %VRCSDKBaseVRCPlayerApi, null
 
-    __temp_VRCSDKBaseVRCPlayerApi_2: %VRCSDKBaseVRCPlayerApi,
-    null
+    __temp_SystemBoolean_3: %SystemBoolean, null
+
+    __temp_VRCSDKBaseVRCPlayerApi_2:
+    %VRCSDKBaseVRCPlayerApi, null
 
     __const_String_VR: %SystemString, null
 
@@ -177,32 +195,94 @@ MonoBehaviour:
 
     __const_Int32_2: %SystemInt32, null
 
-    __temp_SystemBoolean_3:
+    __const_String_ME_:
+    %SystemString, null
+
+    __const_Int32_3: %SystemInt32, null
+
+    __temp_SystemBoolean_4:
     %SystemBoolean, null
-
-    __const_String_ME_: %SystemString, null
-
-    __const_Int32_3:
-    %SystemInt32, null
 
     __temp_VRCSDKBaseVRCPlayerApi_3: %VRCSDKBaseVRCPlayerApi,
     null
 
     __const_String_Master_: %SystemString, null
 
-    __const_Int32_4: %SystemInt32,
-    null
+    __const_Int32_4:
+    %SystemInt32, null
 
     __const_Int32_5: %SystemInt32, null
 
-    __temp_SystemInt32_11: %SystemInt32,
-    null
-
-    __temp_UnityEngineUIText_0: %UnityEngineUIText, null
+    __temp_SystemInt32_11:
+    %SystemInt32, null
 
     .data_end
 
     .code_start
+
+    .export _start
+
+    _start:
+
+    PUSH,
+    output
+
+    PUSH, __temp_UnityEngineUIText_0
+
+    COPY
+
+    PUSH, __const_nil
+
+    PUSH,
+    __temp_SystemObject_0
+
+    COPY
+
+    PUSH, __temp_UnityEngineUIText_0
+
+    PUSH,
+    __temp_SystemObject_0
+
+    PUSH, __temp_SystemBoolean_0
+
+    EXTERN, "SystemObject.__op_Equality__SystemObject_SystemObject__SystemBoolean"
+
+    PUSH,
+    __temp_SystemBoolean_0
+
+    JUMP_IF_FALSE, 0x000000B4
+
+    PUSH, gameObject
+
+    PUSH,
+    __temp_UnityEngineGameObject_0
+
+    COPY
+
+    PUSH, __const_RuntimeType_UnityEngine_UI_Text
+
+    PUSH,
+    __temp_SystemType_0
+
+    COPY
+
+    PUSH, __temp_UnityEngineGameObject_0
+
+    PUSH,
+    __temp_SystemType_0
+
+    PUSH, output
+
+    EXTERN, "UnityEngineGameObject.__GetComponentInChildren__SystemType__UnityEngineComponent"
+
+    PUSH,
+    output
+
+    PUSH, __returnValue
+
+    COPY
+
+    JUMP_INDIRECT, ___start_return
 
     .export
     _onPlayerJoined
@@ -247,7 +327,7 @@ MonoBehaviour:
     PUSH,
     __temp_SystemBoolean_0
 
-    JUMP_IF_FALSE, 0x000000B4
+    JUMP_IF_FALSE, 0x00000170
 
     PUSH, __const_Int32_10
 
@@ -258,15 +338,15 @@ MonoBehaviour:
 
     PUSH, __temp_SystemInt32_0
 
-    PUSH, playerList
+    PUSH,
+    playerList
 
-    EXTERN,
-    "VRCSDKBaseVRCPlayerApiArray.__ctor__SystemInt32__VRCSDKBaseVRCPlayerApiArray"
+    EXTERN, "VRCSDKBaseVRCPlayerApiArray.__ctor__SystemInt32__VRCSDKBaseVRCPlayerApiArray"
 
     NOP
 
     JUMP,
-    0x0000023C
+    0x000002F8
 
     PUSH, playerList
 
@@ -291,17 +371,17 @@ MonoBehaviour:
 
     PUSH, __temp_SystemInt32_0
 
-    PUSH, __temp_SystemInt32_1
-
     PUSH,
-    __temp_SystemBoolean_0
+    __temp_SystemInt32_1
+
+    PUSH, __temp_SystemBoolean_1
 
     EXTERN, "SystemInt32.__op_LessThanOrEqual__SystemInt32_SystemInt32__SystemBoolean"
 
     PUSH,
-    __temp_SystemBoolean_0
+    __temp_SystemBoolean_1
 
-    JUMP_IF_FALSE, 0x0000023C
+    JUMP_IF_FALSE, 0x000002F8
 
     PUSH, playerList
 
@@ -441,24 +521,24 @@ MonoBehaviour:
 
     PUSH, __temp_SystemInt32_4
 
-    PUSH, __temp_SystemInt32_5
-
     PUSH,
-    count
+    __temp_SystemInt32_5
+
+    PUSH, count
 
     EXTERN, "SystemInt32.__op_Addition__SystemInt32_SystemInt32__SystemInt32"
 
     PUSH,
-    __const_UInt32_764
+    __const_UInt32_952
 
     PUSH, ___updateValues_return
 
     COPY
 
-    JUMP, 0x000005D0
+    JUMP,
+    0x0000068C
 
-    PUSH,
-    __const_UInt32_4294967288
+    PUSH, __const_UInt32_4294967288
 
     PUSH, ___updateValues_return
 
@@ -500,14 +580,14 @@ MonoBehaviour:
     PUSH, __const_nil
 
     PUSH,
-    __temp_SystemObject_0
+    __temp_SystemObject_1
 
     COPY
 
     PUSH, __temp_VRCSDKBaseVRCPlayerApiArray_2
 
     PUSH,
-    __temp_SystemObject_0
+    __temp_SystemObject_1
 
     PUSH, __temp_SystemBoolean_1
 
@@ -516,7 +596,7 @@ MonoBehaviour:
     PUSH,
     __temp_SystemBoolean_1
 
-    JUMP_IF_FALSE, 0x000005B4
+    JUMP_IF_FALSE, 0x00000670
 
     PUSH, playerList
 
@@ -557,17 +637,17 @@ MonoBehaviour:
 
     PUSH, __temp_SystemInt32_4
 
-    PUSH, __temp_SystemInt32_5
-
     PUSH,
-    __temp_SystemBoolean_1
+    __temp_SystemInt32_5
+
+    PUSH, __temp_SystemBoolean_2
 
     EXTERN, "SystemInt32.__op_GreaterThanOrEqual__SystemInt32_SystemInt32__SystemBoolean"
 
     PUSH,
-    __temp_SystemBoolean_1
+    __temp_SystemBoolean_2
 
-    JUMP_IF_FALSE, 0x000005B0
+    JUMP_IF_FALSE, 0x0000066C
 
     PUSH, count
 
@@ -648,7 +728,7 @@ MonoBehaviour:
     PUSH,
     __const_nil
 
-    PUSH, __temp_SystemObject_1
+    PUSH, __temp_SystemObject_2
 
     COPY
 
@@ -662,23 +742,23 @@ MonoBehaviour:
     PUSH, __temp_VRCSDKBaseVRCPlayerApiArray_5
 
     PUSH,
-    __temp_SystemObject_1
+    __temp_SystemObject_2
 
     PUSH, __temp_SystemInt32_8
 
     EXTERN, "VRCSDKBaseVRCPlayerApiArray.__SetValue__SystemObject_SystemInt32__SystemVoid"
 
     PUSH,
-    __const_UInt32_1432
+    __const_UInt32_1620
 
     PUSH, ___updateValues_return
 
     COPY
 
-    JUMP, 0x000005D0
+    JUMP,
+    0x0000068C
 
-    PUSH,
-    __const_UInt32_4294967288
+    PUSH, __const_UInt32_4294967288
 
     PUSH, ___updateValues_return
 
@@ -752,24 +832,24 @@ MonoBehaviour:
 
     PUSH, count
 
-    PUSH, __temp_SystemInt32_10
+    PUSH,
+    __temp_SystemInt32_10
 
     COPY
 
-    PUSH,
-    __temp_SystemInt32_9
+    PUSH, __temp_SystemInt32_9
 
-    PUSH, __temp_SystemInt32_10
+    PUSH,
+    __temp_SystemInt32_10
 
     PUSH, __temp_SystemBoolean_2
 
-    EXTERN,
-    "SystemInt32.__op_LessThan__SystemInt32_SystemInt32__SystemBoolean"
+    EXTERN, "SystemInt32.__op_LessThan__SystemInt32_SystemInt32__SystemBoolean"
 
     PUSH,
     __temp_SystemBoolean_2
 
-    JUMP_IF_FALSE, 0x00000A50
+    JUMP_IF_FALSE, 0x00000AF8
 
     PUSH, playerList
 
@@ -780,31 +860,24 @@ MonoBehaviour:
 
     PUSH, index
 
-    PUSH, __temp_SystemInt32_9
+    PUSH,
+    __temp_SystemInt32_9
 
     COPY
 
-    PUSH,
-    __temp_VRCSDKBaseVRCPlayerApiArray_6
-
-    PUSH, __temp_SystemInt32_9
+    PUSH, __temp_VRCSDKBaseVRCPlayerApiArray_6
 
     PUSH,
-    __temp_SystemObject_2
+    __temp_SystemInt32_9
+
+    PUSH, player
 
     EXTERN, "VRCSDKBaseVRCPlayerApiArray.__GetValue__SystemInt32__SystemObject"
 
     PUSH,
-    __temp_SystemObject_2
+    text
 
-    PUSH, player
-
-    COPY
-
-    PUSH, text
-
-    PUSH,
-    __temp_SystemString_2
+    PUSH, __temp_SystemString_2
 
     COPY
 
@@ -882,14 +955,14 @@ MonoBehaviour:
     PUSH, __temp_VRCSDKBaseVRCPlayerApi_2
 
     PUSH,
-    __temp_SystemBoolean_2
+    __temp_SystemBoolean_3
 
     EXTERN, "VRCSDKBaseVRCPlayerApi.__IsUserInVR__SystemBoolean"
 
     PUSH,
-    __temp_SystemBoolean_2
+    __temp_SystemBoolean_3
 
-    JUMP_IF_FALSE, 0x0000083C
+    JUMP_IF_FALSE, 0x000008E4
 
     PUSH, __const_String_VR
 
@@ -898,7 +971,7 @@ MonoBehaviour:
 
     COPY
 
-    JUMP, 0x00000850
+    JUMP, 0x000008F8
 
     PUSH, __const_String_Desktop
 
@@ -933,7 +1006,7 @@ MonoBehaviour:
     PUSH,
     __temp_SystemBoolean_3
 
-    JUMP_IF_FALSE, 0x000008C8
+    JUMP_IF_FALSE, 0x00000970
 
     PUSH, __const_String_ME_
 
@@ -942,7 +1015,7 @@ MonoBehaviour:
 
     COPY
 
-    JUMP, 0x000008DC
+    JUMP, 0x00000984
 
     PUSH, __const_nil
 
@@ -970,14 +1043,14 @@ MonoBehaviour:
     PUSH, __temp_VRCSDKBaseVRCPlayerApi_3
 
     PUSH,
-    __temp_SystemBoolean_3
+    __temp_SystemBoolean_4
 
     EXTERN, "VRCSDKBaseVRCPlayerApi.__get_isMaster__SystemBoolean"
 
     PUSH,
-    __temp_SystemBoolean_3
+    __temp_SystemBoolean_4
 
-    JUMP_IF_FALSE, 0x00000954
+    JUMP_IF_FALSE, 0x000009FC
 
     PUSH, __const_String_Master_
 
@@ -986,7 +1059,7 @@ MonoBehaviour:
 
     COPY
 
-    JUMP, 0x00000968
+    JUMP, 0x00000A10
 
     PUSH, __const_nil
 
@@ -1056,17 +1129,17 @@ MonoBehaviour:
 
     PUSH, __temp_SystemInt32_10
 
-    PUSH, __temp_SystemInt32_11
-
     PUSH,
-    index
+    __temp_SystemInt32_11
+
+    PUSH, index
 
     EXTERN, "SystemInt32.__op_Addition__SystemInt32_SystemInt32__SystemInt32"
 
     NOP
 
     JUMP,
-    0x00000650
+    0x0000070C
 
     PUSH, output
 
@@ -1107,5 +1180,5 @@ MonoBehaviour:
   textAsset: {fileID: 4900000, guid: 63e89e9a39787664a89a9d79b79867be, type: 3}
   autoReload: 1
   showKatana: 0
-  showAssembly: 0
+  showAssembly: 1
   showDasm: 0
