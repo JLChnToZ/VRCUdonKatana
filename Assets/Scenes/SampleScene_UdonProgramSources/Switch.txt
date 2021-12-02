@@ -40,7 +40,7 @@
     if(
       ==($(mode), 0),
           while(<($(i), GetLength($(targets))), (
-            SetActive(!GameObject(GetValue($(targets), $(i))), !=(!Boolean(GetValue($(initStates), $(i))), $(localState))),
+            SetActive(!GameObject(GetValue($(targets), $(i))), ^(!Boolean(GetValue($(initStates), $(i))), ==($(localState), 0))),
             =(i, +($(i), 1)),
           )),
       ==($(mode), 1),

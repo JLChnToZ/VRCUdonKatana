@@ -163,30 +163,32 @@ MonoBehaviour:
     __temp_SystemBoolean_7:
     %SystemBoolean, null
 
-    __temp_SystemInt32_12: %SystemInt32, null
+    __temp_SystemBoolean_8: %SystemBoolean, null
 
-    __temp_SystemInt32_13:
+    __temp_SystemInt32_12:
     %SystemInt32, null
 
-    __temp_SystemInt32_14: %SystemInt32, null
+    __temp_SystemInt32_13: %SystemInt32, null
 
-    __temp_SystemInt32_15:
+    __temp_SystemInt32_14:
     %SystemInt32, null
 
-    __temp_UnityEngineGameObject_2: %UnityEngineGameObject,
-    null
+    __temp_SystemInt32_15: %SystemInt32, null
+
+    __temp_UnityEngineGameObject_2:
+    %UnityEngineGameObject, null
 
     __temp_SystemObject_2: %SystemObject, null
 
     __temp_UnityEngineGameObjectArray_4:
     %UnityEngineGameObjectArray, null
 
-    __temp_SystemBoolean_8: %SystemBoolean,
+    __temp_SystemInt32_16: %SystemInt32,
     null
 
-    __temp_SystemInt32_16: %SystemInt32, null
+    __temp_SystemInt32_17: %SystemInt32, null
 
-    __temp_SystemInt32_17:
+    __temp_SystemInt32_18:
     %SystemInt32, null
 
     .data_end
@@ -776,7 +778,7 @@ MonoBehaviour:
     PUSH,
     __temp_SystemBoolean_5
 
-    JUMP_IF_FALSE, 0x0000089C
+    JUMP_IF_FALSE, 0x000008D0
 
     PUSH, i
 
@@ -811,7 +813,7 @@ MonoBehaviour:
     PUSH,
     __temp_SystemBoolean_5
 
-    JUMP_IF_FALSE, 0x00000894
+    JUMP_IF_FALSE, 0x000008C8
 
     PUSH, targets
 
@@ -880,14 +882,31 @@ MonoBehaviour:
 
     COPY
 
-    PUSH, __temp_SystemBoolean_7
+    PUSH, __const_Int32_0
 
     PUSH,
-    __temp_SystemInt32_12
+    __temp_SystemInt32_13
+
+    COPY
+
+    PUSH, __temp_SystemInt32_12
+
+    PUSH,
+    __temp_SystemInt32_13
+
+    PUSH, __temp_SystemBoolean_8
+
+    EXTERN, "SystemInt32.__op_Equality__SystemInt32_SystemInt32__SystemBoolean"
+
+    PUSH,
+    __temp_SystemBoolean_7
+
+    PUSH, __temp_SystemBoolean_8
 
     PUSH, __temp_SystemBoolean_6
 
-    EXTERN, "SystemObject.__op_Inequality__SystemObject_SystemObject__SystemBoolean"
+    EXTERN,
+    "SystemBoolean.__op_ConditionalXor__SystemBoolean_SystemBoolean__SystemBoolean"
 
     PUSH,
     __temp_UnityEngineGameObject_1
@@ -925,25 +944,25 @@ MonoBehaviour:
     JUMP,
     0x000006CC
 
-    JUMP, 0x00000A80
+    JUMP, 0x00000AB4
 
     PUSH, mode
 
-    PUSH, __temp_SystemInt32_13
+    PUSH, __temp_SystemInt32_14
 
     COPY
 
     PUSH,
     __const_Int32_1
 
-    PUSH, __temp_SystemInt32_14
+    PUSH, __temp_SystemInt32_15
 
     COPY
 
-    PUSH, __temp_SystemInt32_13
+    PUSH, __temp_SystemInt32_14
 
     PUSH,
-    __temp_SystemInt32_14
+    __temp_SystemInt32_15
 
     PUSH, __temp_SystemBoolean_7
 
@@ -952,7 +971,7 @@ MonoBehaviour:
     PUSH,
     __temp_SystemBoolean_7
 
-    JUMP_IF_FALSE, 0x00000A7C
+    JUMP_IF_FALSE, 0x00000AB0
 
     PUSH, i
 
@@ -980,14 +999,14 @@ MonoBehaviour:
     PUSH,
     __temp_SystemInt32_15
 
-    PUSH, __temp_SystemBoolean_6
+    PUSH, __temp_SystemBoolean_8
 
     EXTERN, "SystemInt32.__op_LessThan__SystemInt32_SystemInt32__SystemBoolean"
 
     PUSH,
-    __temp_SystemBoolean_6
+    __temp_SystemBoolean_8
 
-    JUMP_IF_FALSE, 0x00000A74
+    JUMP_IF_FALSE, 0x00000AA8
 
     PUSH, targets
 
@@ -998,14 +1017,14 @@ MonoBehaviour:
 
     PUSH, i
 
-    PUSH, __temp_SystemInt32_15
+    PUSH, __temp_SystemInt32_16
 
     COPY
 
     PUSH,
     __temp_UnityEngineGameObjectArray_4
 
-    PUSH, __temp_SystemInt32_15
+    PUSH, __temp_SystemInt32_16
 
     PUSH,
     __temp_SystemObject_2
@@ -1038,14 +1057,14 @@ MonoBehaviour:
     PUSH,
     __temp_SystemInt32_17
 
-    PUSH, __temp_SystemBoolean_8
+    PUSH, __temp_SystemBoolean_6
 
     EXTERN, "SystemInt32.__op_Equality__SystemInt32_SystemInt32__SystemBoolean"
 
     PUSH,
     __temp_UnityEngineGameObject_2
 
-    PUSH, __temp_SystemBoolean_8
+    PUSH, __temp_SystemBoolean_6
 
     EXTERN,
     "UnityEngineGameObject.__SetActive__SystemBoolean__SystemVoid"
@@ -1053,20 +1072,20 @@ MonoBehaviour:
     PUSH, i
 
     PUSH,
-    __temp_SystemInt32_16
+    __temp_SystemInt32_17
 
     COPY
 
     PUSH, __const_Int32_1
 
-    PUSH, __temp_SystemInt32_17
+    PUSH, __temp_SystemInt32_18
 
     COPY
 
     PUSH,
-    __temp_SystemInt32_16
+    __temp_SystemInt32_17
 
-    PUSH, __temp_SystemInt32_17
+    PUSH, __temp_SystemInt32_18
 
     PUSH, i
 
@@ -1076,9 +1095,9 @@ MonoBehaviour:
     NOP
 
     JUMP,
-    0x000008F4
+    0x00000928
 
-    JUMP, 0x00000A80
+    JUMP, 0x00000AB4
 
     NOP
 
