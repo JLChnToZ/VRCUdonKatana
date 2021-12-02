@@ -313,7 +313,7 @@ namespace JLChnToZ.VRC.UdonLowLevel {
                     }
                 }
                 foreach (var kv in variableDefs)
-                    sb.AppendLine($"{kv.Key}: %{kv.Value.type.GetUdonTypeName()}, {(kv.Value.attributes.HasFlag(VariableAttributes.DefaultThis) ? "this" : "null")}");
+                    sb.AppendLine($"{kv.Key}: %{kv.Value.type.GetUdonTypeName(true)}, {(kv.Value.attributes.HasFlag(VariableAttributes.DefaultThis) ? "this" : "null")}");
                 sb.AppendLine(".data_end");
                 sb.AppendLine(".code_start");
                 for (var instruction = firstInstruction; instruction != null; instruction = instruction.next) {
@@ -376,7 +376,15 @@ namespace JLChnToZ.VRC.UdonLowLevel {
             typeNames[typeof(IUdonEventReceiver[])] = "VRCUdonCommonInterfacesIUdonEventReceiverArray";
         }
 
-        public static string GetUdonTypeName(this Type type) => typeNames.TryGetValue(type, out var typeName) ? typeName : "SystemObject";
+        public static string GetUdonTypeName(this Type type, bool declareType = false) {
+            if (!typeNames.TryGetValue(type, out var typeName)) return "SystemObject";
+            if (declareType)
+                switch (typeName) {
+                    case "VRCUdonCommonInterfacesIUdonEventReceiver": return "VRCUdonUdonBehaviour";
+                    case "VRCUdonCommonInterfacesIUdonEventReceiverArray": return "VRCUdonUdonBehaviourArray";
+                }
+            return typeName;
+        }
 
         public static Type GetPredefinedType(this VariableName varName) {
             predefinedVariableTypes.TryGetValue(varName, out var type);

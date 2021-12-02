@@ -55,6 +55,7 @@ MonoBehaviour:
   sourceText: "(\n  when(_start, (\n    ; Called on initialize\n    DebugLog(Hello
     World!)\n  )),\n)"
   textAsset: {fileID: 0}
+  autoReload: 0
   showKatana: 1
   showAssembly: 0
   showDasm: 0

@@ -35,35 +35,35 @@ MonoBehaviour:
     gameObject:
     %UnityEngineGameObject, this
 
-    thisScript: %VRCUdonCommonInterfacesIUdonEventReceiver,
-    this
+    thisScript: %VRCUdonUdonBehaviour, this
 
-    initStates: %SystemBooleanArray, null
+    initStates:
+    %SystemBooleanArray, null
 
     state: %SystemInt32, null
 
-    localState:
-    %SystemInt32, null
+    localState: %SystemInt32,
+    null
 
     i: %SystemInt32, null
 
-    ___start_return: %SystemUInt32,
+    ___start_return: %SystemUInt32, null
+
+    ___interact_return:
+    %SystemUInt32, null
+
+    ___onPreSerialization_return: %SystemUInt32, null
+
+    ___onDeserialization_return:
+    %SystemUInt32, null
+
+    ___onOwnershipTransferred_return: %SystemUInt32, null
+
+    ___updateState_return:
+    %SystemUInt32, null
+
+    onOwnershipTransferredPlayer: %VRCSDKBaseVRCPlayerApi,
     null
-
-    ___interact_return: %SystemUInt32, null
-
-    ___onPreserialization_return:
-    %SystemUInt32, null
-
-    ___onDeserialization_return: %SystemUInt32, null
-
-    ___onOwnershipTransferred_return:
-    %SystemUInt32, null
-
-    ___updateState_return: %SystemUInt32, null
-
-    onOwnershipTransferredPlayer:
-    %VRCSDKBaseVRCPlayerApi, null
 
     __temp_SystemBoolean_0: %SystemBoolean, null
 
@@ -127,56 +127,56 @@ MonoBehaviour:
     __temp_SystemBoolean_3: %SystemBoolean, null
 
     __temp_VRCUdonCommonInterfacesIUdonEventReceiver_0:
-    %VRCUdonCommonInterfacesIUdonEventReceiver, null
+    %VRCUdonUdonBehaviour, null
 
-    __temp_VRCSDKBaseVRCPlayerApi_0:
-    %VRCSDKBaseVRCPlayerApi, null
-
-    __temp_UnityEngineGameObject_1: %UnityEngineGameObject,
+    __temp_VRCSDKBaseVRCPlayerApi_0: %VRCSDKBaseVRCPlayerApi,
     null
 
-    __const_UInt32_1320: %SystemUInt32, null
+    __temp_UnityEngineGameObject_1: %UnityEngineGameObject, null
 
-    __const_UInt32_4294967288:
+    __const_UInt32_1320:
     %SystemUInt32, null
 
-    __temp_SystemBoolean_4: %SystemBoolean, null
+    __const_UInt32_4294967288: %SystemUInt32, null
 
-    __const_UInt32_1480:
-    %SystemUInt32, null
-
-    __temp_SystemBoolean_5: %SystemBoolean, null
-
-    __temp_SystemInt32_10:
-    %SystemInt32, null
-
-    __temp_SystemInt32_11: %SystemInt32, null
-
-    __temp_SystemObject_1:
-    %SystemObject, null
-
-    __temp_UnityEngineGameObjectArray_3: %UnityEngineGameObjectArray,
-    null
-
-    __temp_SystemBoolean_6: %SystemBoolean, null
-
-    __temp_SystemBoolean_7:
+    __temp_SystemBoolean_4:
     %SystemBoolean, null
 
-    __temp_SystemBoolean_8: %SystemBoolean, null
+    __const_UInt32_1480: %SystemUInt32, null
 
-    __temp_SystemInt32_12:
+    __temp_SystemBoolean_5:
+    %SystemBoolean, null
+
+    __temp_SystemInt32_10: %SystemInt32, null
+
+    __temp_SystemInt32_11:
     %SystemInt32, null
 
-    __temp_SystemInt32_13: %SystemInt32, null
+    __temp_SystemObject_1: %SystemObject, null
 
-    __temp_SystemInt32_14:
+    __temp_UnityEngineGameObjectArray_3:
+    %UnityEngineGameObjectArray, null
+
+    __temp_SystemBoolean_6: %SystemBoolean,
+    null
+
+    __temp_SystemBoolean_7: %SystemBoolean, null
+
+    __temp_SystemBoolean_8:
+    %SystemBoolean, null
+
+    __temp_SystemInt32_12: %SystemInt32, null
+
+    __temp_SystemInt32_13:
     %SystemInt32, null
 
-    __temp_SystemInt32_15: %SystemInt32, null
+    __temp_SystemInt32_14: %SystemInt32, null
 
-    __temp_UnityEngineGameObject_2:
-    %UnityEngineGameObject, null
+    __temp_SystemInt32_15:
+    %SystemInt32, null
+
+    __temp_UnityEngineGameObject_2: %UnityEngineGameObject,
+    null
 
     __temp_SystemObject_2: %SystemObject, null
 
@@ -643,9 +643,9 @@ MonoBehaviour:
     JUMP_INDIRECT, ___interact_return
 
     .export
-    _onPreserialization
+    _onPreSerialization
 
-    _onPreserialization:
+    _onPreSerialization:
 
     PUSH, synced
 
@@ -672,7 +672,7 @@ MonoBehaviour:
 
     COPY
 
-    JUMP_INDIRECT, ___onPreserialization_return
+    JUMP_INDIRECT, ___onPreSerialization_return
 
     .export
     _onDeserialization
@@ -896,7 +896,7 @@ MonoBehaviour:
 
     PUSH, __temp_SystemBoolean_8
 
-    EXTERN, "SystemInt32.__op_Equality__SystemInt32_SystemInt32__SystemBoolean"
+    EXTERN, "SystemInt32.__op_Inequality__SystemInt32_SystemInt32__SystemBoolean"
 
     PUSH,
     __temp_SystemBoolean_7
