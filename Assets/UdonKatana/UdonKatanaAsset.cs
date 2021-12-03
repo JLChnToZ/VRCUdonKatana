@@ -16,7 +16,6 @@ namespace JLChnToZ.VRC.UdonKatana {
         private const string defaultSource = "(\n  ; Type in your Udon Katana source code here.\n\n  when(_start, (\n    ; Called on initialize\n    DebugLog(Udon Katana works!)\n  )),\n\n  when(_update, (\n    ; Called on every frame\n  )),\n)";
         [SerializeField] string sourceText;
         [SerializeField] TextAsset textAsset;
-        [SerializeField] bool autoReload;
         [SerializeField] bool showKatana;
         [SerializeField] bool showAssembly;
         [SerializeField] bool showDasm;
@@ -41,49 +40,50 @@ namespace JLChnToZ.VRC.UdonKatana {
             using (new EditorGUI.DisabledScope(!allowEditing)) {
                 EditorGUI.BeginChangeCheck();
                 textAsset = EditorGUILayout.ObjectField("Script File (Optional)", textAsset, typeof(TextAsset), false) as TextAsset;
-                if (EditorGUI.EndChangeCheck() && textAsset != null && sourceText != textAsset.text &&
-                    EditorUtility.DisplayDialog("Load Udon Katana Script", "Do you want to overwrite existing scripts now?", "Yes", "No")) {
-                    sourceText = textAsset.text;
+                if (EditorGUI.EndChangeCheck() && textAsset != null) {
+                    if (!string.IsNullOrEmpty(sourceText) && sourceText != textAsset.text)
+                        switch (EditorUtility.DisplayDialogComplex(
+                            "Load Udon Katana Script",
+                            "You have existing scripts, do you want to overwrite it?",
+                            "Use the script file",
+                            "Overwrite the script file with existing script",
+                            "Cancel"
+                        )) {
+                            case 0:
+                                sourceText = textAsset.text;
+                                break;
+                            case 1:
+                                if (!SaveTextAsset()) goto default;
+                                sourceText = "";
+                                break;
+                            default:
+                                textAsset = null;
+                                break;
+                        }
+                    else sourceText = "";
                     dirty = true;
-                } else if (textAsset == null)
-                    autoReload = false;
+                }
             }
-            using (new EditorGUI.DisabledScope(autoReload || (textAsset != null ? sourceText != textAsset.text : string.IsNullOrEmpty(sourceText))))
-                if (GUILayout.Button("Save", EditorStyles.miniButtonLeft)) {
-                    SaveAsset();
-                    dirty = true;
-                }
-            using (new EditorGUI.DisabledScope(autoReload || textAsset == null || sourceText == textAsset.text))
-                if (GUILayout.Button("Restore", EditorStyles.miniButtonMid)) {
-                    sourceText = textAsset.text;
-                    dirty = true;
-                }
-            using (new EditorGUI.DisabledScope(textAsset == null || (!autoReload && sourceText != textAsset.text))) {
-                EditorGUI.BeginChangeCheck();
-                autoReload = GUILayout.Toggle(autoReload, "Auto", EditorStyles.miniButtonRight);
-                if (EditorGUI.EndChangeCheck()) {
-                    sourceText = autoReload ? "" : textAsset.text;
-                    dirty = true;
-                }
+            if (textAsset == null && GUILayout.Button("Save", EditorStyles.miniButton, GUILayout.ExpandWidth(false))) {
+                SaveTextAsset();
+                dirty = true;
             }
             EditorGUILayout.EndHorizontal();
             EditorGUILayout.BeginHorizontal();
             showKatana = EditorGUILayout.Foldout(showKatana, "Udon Katana");
-            if (GUILayout.Button("Compile", EditorStyles.miniButton)) {
+            if (GUILayout.Button("Compile", EditorStyles.miniButton, GUILayout.ExpandWidth(false))) {
                 RefreshProgram();
                 dirty = true;
             }
             EditorGUILayout.EndHorizontal();
-            using (new EditorGUI.DisabledScope(autoReload || !allowEditing))
+            using (new EditorGUI.DisabledScope(textAsset != null || !allowEditing))
                 if (showKatana) {
                     EditorGUILayout.LabelField("Udon Katana", EditorStyles.boldLabel);
-                    if (autoReload)
-                        EditorGUILayout.TextArea(textAsset.text);
-                    else {
+                    if (textAsset == null) {
                         EditorGUI.BeginChangeCheck();
                         sourceText = EditorGUILayout.TextArea(sourceText);
                         if (EditorGUI.EndChangeCheck()) dirty = true;
-                    }
+                    } else EditorGUILayout.TextArea(textAsset.text);
                 }
             showAssembly = EditorGUILayout.Foldout(showAssembly, "Compiled Udon Assembly");
             if (showAssembly) base.DrawAssemblyTextArea(false, ref dirty);
@@ -92,7 +92,7 @@ namespace JLChnToZ.VRC.UdonKatana {
         protected override void RefreshProgramImpl() {
             try {
                 var builder = new UdonAssemblyBuilder();
-                if (autoReload && textAsset != null) sourceText = textAsset.text;
+                if (textAsset != null) sourceText = textAsset.text;
                 var node = Node.Deserialize(sourceText);
                 ProcessingBlock.AssembleBody(node, builder, sourceText);
                 udonAssembly = builder.Compile();
@@ -102,23 +102,23 @@ namespace JLChnToZ.VRC.UdonKatana {
                 Debug.LogError(ex);
                 assemblyError = ex.Message;
             } finally {
-                if (autoReload) sourceText = "";
+                if (textAsset != null) sourceText = "";
             }
         }
 
-        private void SaveAsset() {
+        private bool SaveTextAsset() {
             var assetPath = textAsset == null ? string.Empty : AssetDatabase.GetAssetPath(textAsset);
             if (string.IsNullOrEmpty(assetPath)) {
                 assetPath = EditorUtility.SaveFilePanelInProject("Save Udon Katana Script", $"{name} Script", "txt", "");
-                if (!string.IsNullOrEmpty(assetPath)) {
-                    File.WriteAllText(assetPath, sourceText);
-                    AssetDatabase.Refresh();
-                    textAsset = AssetDatabase.LoadAssetAtPath<TextAsset>(assetPath);
-                }
-            } else if (EditorUtility.DisplayDialog("Save Udon Katana Script", $"Do you want to overwrite `{assetPath}`?", "Yes", "No")) {
+                if (string.IsNullOrEmpty(assetPath)) return false;
                 File.WriteAllText(assetPath, sourceText);
-                EditorUtility.SetDirty(textAsset);
+                AssetDatabase.Refresh();
+                textAsset = AssetDatabase.LoadAssetAtPath<TextAsset>(assetPath);
+                return true;
             }
+            File.WriteAllText(assetPath, sourceText);
+            EditorUtility.SetDirty(textAsset);
+            return true;
         }
     }
 
