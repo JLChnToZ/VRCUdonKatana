@@ -1118,7 +1118,6 @@ MonoBehaviour:
   assemblyError: 
   sourceText: 
   textAsset: {fileID: 4900000, guid: c04c54d7cb5fb6745a940ffe61ca477a, type: 3}
-  autoReload: 1
   showKatana: 0
   showAssembly: 0
   showDasm: 0

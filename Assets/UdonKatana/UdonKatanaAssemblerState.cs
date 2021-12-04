@@ -86,11 +86,11 @@ namespace JLChnToZ.VRC.UdonKatana {
                         methodName = $"!{FormatTypeName(def.parameters[argc].type)}";
                         aliases.Add($"!{def.parameters[argc].type.GetUdonTypeName()}");
                         break;
+                    case "op_Increment": methodName = "++"; break;
                     case "op_UnaryPlus":
-                    case "op_Increment":
                     case "op_Addition": methodName = "+"; break;
+                    case "op_Decrement": methodName = "--"; break;
                     case "op_UnaryMinus":
-                    case "op_Decrement":
                     case "op_Subtraction": methodName = "-"; break;
                     case "op_Multiply":
                     case "op_Multiplication": methodName = "*"; break;

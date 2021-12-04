@@ -71,10 +71,12 @@ namespace JLChnToZ.VRC.UdonKatana {
             EditorGUILayout.EndHorizontal();
             EditorGUILayout.BeginHorizontal();
             showKatana = EditorGUILayout.Foldout(showKatana, "Udon Katana");
-            if (GUILayout.Button("Compile", EditorStyles.miniButton, GUILayout.ExpandWidth(false))) {
+            if (GUILayout.Button("Compile", EditorStyles.miniButtonLeft, GUILayout.ExpandWidth(false))) {
                 RefreshProgram();
                 dirty = true;
             }
+            if (GUILayout.Button("Cheat Sheet...", EditorStyles.miniButtonRight, GUILayout.ExpandWidth(false)))
+                CheatSheet.GetWindow();
             EditorGUILayout.EndHorizontal();
             using (new EditorGUI.DisabledScope(textAsset != null || !allowEditing))
                 if (showKatana) {

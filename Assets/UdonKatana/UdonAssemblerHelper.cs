@@ -2,7 +2,6 @@
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
-using UnityEngine;
 using VRC.Udon;
 using VRC.Udon.Common;
 using VRC.Udon.Common.Interfaces;
