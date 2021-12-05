@@ -125,7 +125,7 @@ namespace JLChnToZ.VRC.UdonKatana {
                 return true;
             }
             var parsedName = src.fullName.Split(new [] { "__" }, StringSplitOptions.None);
-            if (parsedName.Length == 4) {
+            if (parsedName.Length >= 3) {
                 string methodName = parsedName[1];
                 switch (methodName) {
                     case "op_Explicit": result = CreateCastEntry(src, true); return true;
@@ -165,25 +165,25 @@ namespace JLChnToZ.VRC.UdonKatana {
                                 csBuilder.Append($"{returnName} = {src.type.ToCSharpTypeName()}.{methodName.Substring(4)};");
                                 katanaBuilder.Append($"=({returnName}, (Get{src.type.GetUdonTypeName()}{char.ToUpper(methodName[4])}{methodName.Substring(5)})),");
                             } else {
-                                csBuilder.Append($"{returnName} = {src.parameters[0].name}.{methodName.Substring(4)};");
-                                katanaBuilder.Append($"=({returnName}, Get{src.type.GetUdonTypeName()}{char.ToUpper(methodName[4])}{methodName.Substring(5)}($({src.parameters[0].name}))),");
+                                csBuilder.Append($"{returnName} = {GetParameterName(src, 0)}.{methodName.Substring(4)};");
+                                katanaBuilder.Append($"=({returnName}, Get{src.type.GetUdonTypeName()}{char.ToUpper(methodName[4])}{methodName.Substring(5)}($({GetParameterName(src, 0)}))),");
                             }
                             Finalize(ref result, csBuilder, katanaBuilder);
                             return true;
                         } else if (methodName.StartsWith("set_")) {
                             result = InitDeclaration(src, out var csBuilder, out var katanaBuilder);
                             if (src.parameters.Count == 1) {
-                                csBuilder.Append($"{src.type.ToCSharpTypeName()}.{methodName.Substring(4)} = {src.parameters[0].name};");
-                                katanaBuilder.Append($"Set{src.type.GetUdonTypeName()}{char.ToUpper(methodName[4])}{methodName.Substring(5)}($({src.parameters[0].name})),");
+                                csBuilder.Append($"{src.type.ToCSharpTypeName()}.{methodName.Substring(4)} = {GetParameterName(src, 0)};");
+                                katanaBuilder.Append($"Set{src.type.GetUdonTypeName()}{char.ToUpper(methodName[4])}{methodName.Substring(5)}($({GetParameterName(src, 0)})),");
                             } else {
-                                csBuilder.Append($"{src.parameters[0].name}.{methodName.Substring(4)} = {src.parameters[1].name};");
-                                katanaBuilder.Append($"Set{char.ToUpper(methodName[4])}{methodName.Substring(5)}($({src.parameters[0].name}), $({src.parameters[1].name})),");
+                                csBuilder.Append($"{GetParameterName(src, 0)}.{methodName.Substring(4)} = {GetParameterName(src, 1)};");
+                                katanaBuilder.Append($"Set{char.ToUpper(methodName[4])}{methodName.Substring(5)}($({GetParameterName(src, 0)}), $({GetParameterName(src, 1)})),");
                             }
                             Finalize(ref result, csBuilder, katanaBuilder);
                             return true;
                         } else {
-                            int parameterCount = parsedName[2].Split('_').Length;
-                            bool hasReturnType = parsedName[3] != "SystemVoid";
+                            int parameterCount = parsedName.Length > 3 ? parsedName[2].Split('_').Length : 0;
+                            bool hasReturnType = parsedName[parsedName.Length - 1] != "SystemVoid";
                             if (hasReturnType) parameterCount++;
                             bool isStatic = parameterCount == src.parameters.Count;
                             result = CreateMethodEntry(
